@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
 			// HTML contents of cells and rows
-			var cell = '<div class="cellContainer"><input class="cell" type="text" maxlength="1"></input><div class="cellNum"></div></div>';
+			var cell = '<div class="cellContainer"><input class="cell" type="text" cellnumber="-1" acrossclue=-"1" downclue="-1" maxlength="1"></input><div class="cellNum"></div></div>';
 			var row = '<div class="row"></div>';
 			
 			// Essentially static variables for this iteration of the site
@@ -18,6 +18,9 @@
 			var lockeSol1 = ['O','N','I','O','N','','','A','F','T','','C','S','T','','P','A','N','G','E','','D','N','A','S','','L','O','S','T','A','T','O','R','S','','E','D','N','A','','O','U','R','S','L','O','N','E','S','T','A','R','C','O','U','N','T','R','Y','','','','S','Y','D','N','E','Y','','M','E','H','','','A','B','S','','','S','S','W','','B','A','S','A','L','','N','O','O','S','E','','','S','A','R','','','S','O','B','T','R','U','E','L','I','E','','W','A','R','M','I','C','E','E','A','T','','','T','A','E','','','B','E','A','K','S','','T','H','A','I','S','','M','A','S','','','N','E','O','','','H','R','S','','I','B','E','R','I','A','','','','B','L','A','C','K','S','T','A','R','N','A','T','I','O','N','M','A','N','A','','T','E','R','O','','M','O','O','D','Y','I','C','O','N','','E','C','G','S','','I','N','T','E','S','','K','I','E','','T','H','O','','','T','E','A','S','E'];
 			var lockeSol2 = ['B','E','S','T','','K','A','L','','','P','L','U','C','K','R','E','N','I','','O','C','A','L','','S','A','M','O','A','A','C','A','R','','C','R','Y','O','','A','D','O','R','N','T','H','R','E','E','H','E','E','L','C','L','I','C','K','S','','','E','D','S','','S','R','','U','M','E','H','','','S','O','S','','T','D','','S','P','T','','S','A','','','O','N','E','S','','O','B','O','E','S','','','','','','C','O','M','I','N','G','O','F','A','G','E','T','A','L','E','','','','','','S','A','S','S','Y','','A','R','E','A','','','B','P','','P','S','T','','M','E','','M','E','T','','','I','O','T','A','','O','T','','L','I','L','','','Y','E','L','L','O','W','B','R','I','C','K','R','O','A','D','A','M','B','I','T','','A','I','T','E','','O','A','T','Y','B','R','O','C','A','','S','E','A','T','','N','D','A','K','A','S','S','E','T','','','S','N','O','','S','S','N','E'];
 			var currentSol = '';
+			var $cells;
+			var $cellNums;
+			
 			
 			// Boolean to track whether the user is in Edit or Solve mode
 			var editMode = false;
@@ -126,7 +129,6 @@
 			function outputVoids(){
 				var cellString = '';
 				var cellArray = new Array();
-				var $cells = $('.cell');
 				for (var i = 0, ii = $cells.length; i < ii; i++){
 					if($($cells[i]).hasClass('void')){
 						if(cellString.length > 0){
@@ -143,7 +145,6 @@
 				if(Object.prototype.toString.call(voidArray) === '[object String]'){
 					voidArray = removeBrackets(voidArray).split(',');
 				}
-				$cells = $('.cell');
 				$cells.removeClass('void');
 				for (var i = 0; i < voidArray.length; i++){
 					makeVoid($($cells[voidArray[i]]));
@@ -151,7 +152,6 @@
 			};
 			
 			function outputLetters(){
-				$cells = $('.cell');
 				var cellArray = new Array();
 				for (var i =0; i<$cells.length; i++){
 					$cell = $($cells[i]);
@@ -169,16 +169,29 @@
 				if(Object.prototype.toString.call(letterArray) === '[object String]'){
 					letterArray = removeBrackets(letterArray).split(',');
 				}
-				$cells = $('.cell');
 				for (var i = 0; i<$cells.length; i++){
 					$($cells[i]).val(letterArray[i]);
 				}
 			};
 			
+			function outputClues(){
+				var cellArray = new Array();
+				for (var i =0; i<$cells.length; i++){
+					$cell = $($cells[i]);
+					var cellDict = {'across': '','down':''};
+					if (!$cell.hasClass('void')){
+						cellDict['across'] = ($cell.attr('acrossclue')!=-1)? $cell.attr('acrossclue') :'';
+						cellDict['down'] = ($cell.attr('downclue')!=-1)? $cell.attr('downclue') :'';
+					}
+					else {
+					}
+					cellArray[i] = cellDict;
+				}
+				return cellArray;
+			};
+			
 			//Function to automatically number the cells of a blank puzzle
 			function numberCells(){
-				$cells = $('.cell');
-				$cellNums = $('.cellNum');
 				counter = 1;
 				for(var i = 0; i<$cells.length; i++){
 					$cell = $($cells[i]);
@@ -186,18 +199,18 @@
 					
 					if(!$cell.hasClass('void') && !isLoneCell(i)){
 						if(isTopRowCell(i)){
-							addNumber($cellNum);
+							addNumber($cell,$cellNum);
 						}
 						else if (isLeftColCell(i)){
-							addNumber($cellNum);
+							addNumber($cell,$cellNum);
 						} 
 						else if($cellAbove(i)){
 							if($cellAbove(i).hasClass('void')){
-								addNumber($cellNum);
+								addNumber($cell,$cellNum);
 							} 
 							else if($cellLeft(i)){
 								if ($cellLeft(i).hasClass('void')){
-									addNumber($cellNum);
+									addNumber($cell,$cellNum);
 								}
 							}
 						}
@@ -207,28 +220,30 @@
 			};
 			
 			//Helper function for adding numbers to non-void cells
-			function addNumber(el){
-				el.text(''+counter);
+			function addNumber(cell,cellNum){
+				cell.attr('cellnumber',counter);
+				cellNum.text(''+counter);
 				counter+=1;
-			};
+			}
 			
 			// Functions for clearing various parts of the puzzle
 			function clearNumbers(){
 				$('.cellNum').text('');
-			};
+				$('.cell').attr('cellnumber',-1);
+			}
 			
 			function clearVoids(){
 				$('.cell').removeClass('void');
-			};
+			}
 			
 			function clearLetters(){
 				$('.cell').val('');
-			};
+			}
 			
 			function clearCorrectness(){
 				$('.cell').removeClass('correct');
 				$('.cell').removeClass('incorrect');
-			};
+			}
 			
 			function clearCells(){
 				clearLetters();
@@ -236,18 +251,45 @@
 				clearVoids();
 				clearCorrectness();
 				$('#cheatResult').text('');
-			};
+			}
 			
-			//Hunt functions
+			function clearClues(){
+				$cells.attr('acrossclue',-1);
+				$cells.attr('downclue',-1);
+			}
+			
+			function updateRC() {
+				$('#rowDim').text(numRows);
+				$('#colDim').text(numCols);
+			}
+			
+			//Clue functions
 			function getClueOrientation(){	
 				return $('input[name=clueOrientation]:checked', '#clueForm').val();
 			}
+			function getClueText(){
+				return $('#clueForm textarea#clueInput').val();
+			}
+			function getClueCellNumber(){
+				return $('#clueForm #clueCell').val();
+			}
+			
+			//Function to add a clue to a cell
+			function addClue(clueString, cellNumber, direction){
+				$cell = $('.cell[cellnumber='+cellNumber+']');
+				if(direction == 'across'){
+					$cell.attr('acrossclue',clueString)
+				}
+				else if (direction == 'down'){
+					$cell.attr('downclue',clueString)
+				}
+			}
 			
 			/*
-			
+			Checks the cells that the user has filled against the answers for the current puzzle.
+			Fills in incorrect answers and highlights them red, while highlighting correct answers green.
 			*/
 			function compareAnswers(){
-				$cells = $('.cell');
 				correctLetters = 0;
 				totalLetters = 0;
 				for(var i = 0; i< $cells.length; i++){
@@ -302,6 +344,14 @@
 						toggleVoid($(this));
 					}
 				});
+				$('.numbersOnly').keyup(function () { 
+   					this.value = this.value.replace(/[^0-9\.]/g,'');
+				});
+				
+				//Initialize the cells, cellNumbers, and row x col tag
+				$cells = $('.cell');
+				$cellNums = $('.cellNum');
+				updateRC();
 			});
 		</script>
 		<style type="text/css">
@@ -382,7 +432,7 @@
 			
 			#puzzleBox {
 				border: 2px solid black;
-				height: 500px;
+				height: 545px;
 				padding: 4px;
 				background-color: #eee;
 				width: 750px;
@@ -392,7 +442,7 @@
 				margin: 0.5em 0 0.5em 0;
 			}
 			h5 {
-				margin: 0.5em 0 0.5em 0;
+				margin: 0em 0 0.5em 0;
 				clear: left;
 			}
 			#credit {
@@ -448,34 +498,87 @@
 				font-size: 10px;
 			}
 			#clueForm {
-				font-size: 10px;
+				overflow: auto;
+				position: relative;
 			}
 			#clueForm input, #clueForm span, #clueForm button{
 				float: left;
 			}
+			#clueForm textarea {
+				float: left;
+			}
+			#clueCell {
+				width: 1.7em;
+				text-align: center;
+				float: left;
+			}
+			#clueCellID {
+				width: 80px;
+				height: 70px;
+				float: left;
+			}
+			#clueCellIDtitle {
+				line-height:14px;
+				font-size: 14px;
+				vertical-align: center;
+				margin-right: 0.3em;
+				padding: 4px 0 1px 0;
+			}
+			.clueCellRadio {
+				width: 80px;
+				position: relative;
+				height: 19px;
+				overflow: auto;
+				font-size: 10px;
+				vertical-align: center;
+				line-height: 19px;
+			}
+			#clueForm .smallText {
+				font-size: 10px;
+			}
+			#clueButton {
+				position: absolute;
+				bottom: 0px;
+				right: 0px;
+				-webkit-border-radius: 0px;
+				-moz-border-radius: 0px;
+				border-radius: 0px;
+				font-family:'Helvetica Neue',Arial,sans-serif;
+				font-weight: bold;
+				width: 66px;
+				height: 24px;
+				
+			}
+			
+
 		</style>
 	</head>
 	<body>
 		<div id='puzzleBox'>
+			<h3>Crossword Wizard</h3>
 			<div id="topPuzzleBox">
 				<div id='cword'></div>
 				<div id='cwordControls'>
 					
-					<h3>Crossword Wizard</h3>
-					<hr />
 					<h5>Puzzle Controls</h5>
 					<input type="button" value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;"/>
 					<input type="button" value="Void All" id="voidAll" onclick="makeVoid($('.cell')); return false;"/>
-					<input type="button" value="Renumber Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>
+					<input type="button" value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>
 					<hr />
-					<h5>Clues</h5>
-						<form id="clueForm">
-							<input type="radio" name="clueOrientation" value="Across"><span>Across</span><br>
-  							<input type="radio" name="clueOrientation" value="Down"><span>Down</span><br>
-  							<input type="checkbox" name="replaceClue" value="Replace?" ><span>Replace Existing?</span></input>
-							<button id="clueButton" value="Add Clue" >Add Clue</button>
-							
-						</form><br />
+					<div id="clueForm">
+						<h5>Add Clues</h5>
+						<div id="clueCellID">
+							<div>
+								<span id="clueCellIDtitle">Cell #</span>
+								<input type="text" maxlength="2" id="clueCell" class="numbersOnly"/>
+							</div>
+							<div class="clueCellRadio"><input type="radio" name="clueOrientation" value="across" checked="true"><span>Across</span></div>
+							<div class="clueCellRadio"><input type="radio" name="clueOrientation" value="down"><span>Down</span></div>
+						</div>
+						<textarea id ="clueInput" placeholder="Clue" cols="37"></textarea>
+						<input type="checkbox" name="replaceClue" value="Replace?" checked="true"><span class="smallText">Replace Existing?</span></input>
+						<button id="clueButton" value="Add Clue" onclick="addClue(getClueText(),getClueCellNumber(),getClueOrientation()); $('#clueInput').val('');return false;" >Add Clue</button>
+					</div>
 					<hr />
 					<h5>Load Popular Puzzles</h5>
 					<input type="button" value="Locke #1" id="locke1" onclick="clearCells(); inputVoids(andrewsCrossword1); numberCells(); currentSol = lockeSol1; return false;" />
@@ -488,13 +591,15 @@
 				</div>
 			</div>
 			<div id="botPuzzleBox">
-				<div class="mode"><span class="left">Current Mode: &nbsp;</span><button id="modeButton" class="solveMode left" value="SOLVE" onclick="toggleMode(); return false;">SOLVE</button><div id="dim" class="left"><span id="rowDim">15</span><span>&nbsp;x&nbsp;</span><span id="colDim">15</span></div></div>
+				<div class="mode"><span class="left">Current Mode: &nbsp;</span><button id="modeButton" class="solveMode left" value="SOLVE" onclick="toggleMode(); return false;">SOLVE</button><div id="dim" class="left"><span id="rowDim">?</span><span>&nbsp;x&nbsp;</span><span id="colDim">?</span></div></div>
 				<h5>Puzzle Data (comma-separated)</h5>
 				<textarea id="cwordInputOutput" rows = "3" cols="100" placeholder="Input or output data about this crossword"></textarea>
 				<input class='inputOutputButton' type="button" value="Input Voids" id="inputVoids" onclick=" inputVoids($('#cwordInputOutput').val()); return false;" />
 				<input class='inputOutputButton' type="button" value="Output Voids" id="outputVoids" onclick="$('#cwordInputOutput').val('['+outputVoids().join(',')+']'); return false;" />
 				<input class='inputOutputButton' type="button" value="Input Letters" id="inputLetters" onclick="inputLetters($('#cwordInputOutput').val()); return false;" />
 				<input class='inputOutputButton' type="button" value="Output Letters" id="outputLetters" onclick="$('#cwordInputOutput').val('['+outputLetters().join(',')+']'); return false;"/>
+				<input class='inputOutputButton' type="button" value="Input Clues" id="inputClues" onclick="return false;" />
+				<input class='inputOutputButton' type="button" value="Output Clues" id="outputClues" onclick="$('#cwordInputOutput').val(outputClues()); return false;"/>
 				<br />
 				<div id="credit">Made by Dylan O'Shea, 2012</div>
 			</div>
