@@ -435,7 +435,7 @@
 				height: 545px;
 				padding: 4px;
 				background-color: #eee;
-				width: 750px;
+				width: 850px;
 			}
 			h3 {
 				text-align: center;
@@ -501,7 +501,7 @@
 				overflow: auto;
 				position: relative;
 			}
-			#clueForm input, #clueForm span, #clueForm button{
+			#clueForm span, #clueForm button{
 				float: left;
 			}
 			#clueForm textarea {
@@ -549,22 +549,41 @@
 				height: 24px;
 				
 			}
-			
+			#leftControls {
+				float: left;
+				height: 375px;
+				width: 100px;
+			}
+			#leftControls button{
+				float: left;
+				font-size: 9px;
+				height: 22px;
+				padding: 0px 1px;
+				margin: 0.3em 0.1em;
+				height: 22px;
+			}
+			hr {
+				clear: left;
+				margin-bottom: 0.3em;
+			}			
 
 		</style>
 	</head>
 	<body>
 		<div id='puzzleBox'>
 			<h3>Crossword Wizard</h3>
+			<div id="leftControls">
+									<h5>Puzzle Controls</h5>
+					<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;">Clear Voids</button>
+					<button value="Void All" id="voidAll" onclick="makeVoid($('.cell')); return false;">Void All</button>
+					<hr />
+					<button value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>Re-number</button>
+					<input type="checkbox" id="skipSingles" /><span>Skip singles?</span>
+					<br/>
+			</div>
 			<div id="topPuzzleBox">
 				<div id='cword'></div>
 				<div id='cwordControls'>
-					
-					<h5>Puzzle Controls</h5>
-					<input type="button" value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;"/>
-					<input type="button" value="Void All" id="voidAll" onclick="makeVoid($('.cell')); return false;"/>
-					<input type="button" value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>
-					<hr />
 					<div id="clueForm">
 						<h5>Add Clues</h5>
 						<div id="clueCellID">
@@ -576,7 +595,7 @@
 							<div class="clueCellRadio"><input type="radio" name="clueOrientation" value="down"><span>Down</span></div>
 						</div>
 						<textarea id ="clueInput" placeholder="Clue" cols="37"></textarea>
-						<input type="checkbox" name="replaceClue" value="Replace?" checked="true"><span class="smallText">Replace Existing?</span></input>
+						<input type="checkbox" name="replaceClue" value="Replace?" checked><span class="smallText">Replace Existing?</span></input>
 						<button id="clueButton" value="Add Clue" onclick="addClue(getClueText(),getClueCellNumber(),getClueOrientation()); $('#clueInput').val('');return false;" >Add Clue</button>
 					</div>
 					<hr />
@@ -594,12 +613,12 @@
 				<div class="mode"><span class="left">Current Mode: &nbsp;</span><button id="modeButton" class="solveMode left" value="SOLVE" onclick="toggleMode(); return false;">SOLVE</button><div id="dim" class="left"><span id="rowDim">?</span><span>&nbsp;x&nbsp;</span><span id="colDim">?</span></div></div>
 				<h5>Puzzle Data (comma-separated)</h5>
 				<textarea id="cwordInputOutput" rows = "3" cols="100" placeholder="Input or output data about this crossword"></textarea>
-				<input class='inputOutputButton' type="button" value="Input Voids" id="inputVoids" onclick=" inputVoids($('#cwordInputOutput').val()); return false;" />
-				<input class='inputOutputButton' type="button" value="Output Voids" id="outputVoids" onclick="$('#cwordInputOutput').val('['+outputVoids().join(',')+']'); return false;" />
-				<input class='inputOutputButton' type="button" value="Input Letters" id="inputLetters" onclick="inputLetters($('#cwordInputOutput').val()); return false;" />
-				<input class='inputOutputButton' type="button" value="Output Letters" id="outputLetters" onclick="$('#cwordInputOutput').val('['+outputLetters().join(',')+']'); return false;"/>
-				<input class='inputOutputButton' type="button" value="Input Clues" id="inputClues" onclick="return false;" />
-				<input class='inputOutputButton' type="button" value="Output Clues" id="outputClues" onclick="$('#cwordInputOutput').val(outputClues()); return false;"/>
+				<button class='inputOutputButton' value="Input Voids" id="inputVoids" onclick=" inputVoids($('#cwordInputOutput').val()); return false;">Input Voids</button>
+				<button class='inputOutputButton' value="Output Voids" id="outputVoids" onclick="$('#cwordInputOutput').val('['+outputVoids().join(',')+']'); return false;">Output Voids</button>
+				<button class='inputOutputButton' value="Input Letters" id="inputLetters" onclick="inputLetters($('#cwordInputOutput').val()); return false;">Input Letters</button>
+				<button class='inputOutputButton' value="Output Letters" id="outputLetters" onclick="$('#cwordInputOutput').val('['+outputLetters().join(',')+']'); return false;">Output Letters</button>
+				<button class='inputOutputButton' value="Input Clues" id="inputClues" onclick="return false;">Input Clues</button>
+				<button class='inputOutputButton' value="Output Clues" id="outputClues" onclick="$('#cwordInputOutput').val(outputClues()); return false;">Output Clues</button>
 				<br />
 				<div id="credit">Made by Dylan O'Shea, 2012</div>
 			</div>
