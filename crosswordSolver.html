@@ -87,7 +87,7 @@
 			//Functions to get the nearest clued cell above or left
 			function getClueLeft(cell){
 				if(hasAcrossClue(cell) && !isVoid(cell)){
-					return {'Number':cell.attr('cellnumber'),'Clue':acrossClue(cell)};
+					return {'Number':parseFloat(cell.attr('cellnumber')),'Clue':acrossClue(cell)};
 				}
 				else if (isLeftColCell(getCellIndex(cell)) || isVoid(cell)){
 					return false;
@@ -98,7 +98,7 @@
 			}
 			function getClueAbove(cell){
 				if(hasDownClue(cell) && !isVoid(cell)){
-					return {'Number':cell.attr('cellnumber'),'Clue':downClue(cell)};
+					return {'Number':parseFloat(cell.attr('cellnumber')),'Clue':downClue(cell)};
 				}
 				else if (isTopRowCell(getCellIndex(cell)) || isVoid(cell)){
 					return false;
@@ -415,12 +415,13 @@
 					}
 				});
 				
+				//When the user hovers over a cell, its clues are dynamically displayed
 				$(".cell").hover(function(){
 					if (getClueLeft($(this))){
 						if($('.curA').is(":hidden")){
 							$('.curA').show();
 						}
-						$('#curClueA').text(parseFloat(getClueLeft($(this))['Number']));
+						$('#curClueA').text(getClueLeft($(this))['Number']);
 						$('#acrossP').text(getClueLeft($(this))['Clue']);
 					}
 					else {
@@ -432,7 +433,7 @@
 						if($('.curD').is(":hidden")){
 							$('.curD').show();
 						}
-						$('#curClueD').text(parseFloat(getClueAbove($(this))['Number']));
+						$('#curClueD').text(getClueAbove($(this))['Number']);
 						$('#downP').text(getClueAbove($(this))['Clue']);
 					}
 					else {
