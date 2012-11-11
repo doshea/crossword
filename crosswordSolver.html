@@ -79,6 +79,70 @@
 				return $($cells[cellNumber+1]);
 			}
 			
+			//Function to return a cell's index within the array of cells
+			function getCellIndex(cell){
+				return $cells.index(cell);
+			}
+			
+			//Functions to get the nearest clued cell above or left
+			function getClueLeft(cell){
+				if(hasAcrossClue(cell) && !isVoid(cell)){
+					return {'Number':cell.attr('cellnumber'),'Clue':acrossClue(cell)};
+				}
+				else if (isLeftColCell(getCellIndex(cell)) || isVoid(cell)){
+					return false;
+				}
+				else {
+					return getClueLeft(getCellLeft(cell));
+				}
+			}
+			function getClueAbove(cell){
+				if(hasDownClue(cell) && !isVoid(cell)){
+					return {'Number':cell.attr('cellnumber'),'Clue':downClue(cell)};
+				}
+				else if (isTopRowCell(getCellIndex(cell)) || isVoid(cell)){
+					return false;
+				}
+				else {
+					return getClueAbove(getCellAbove(cell));
+				}
+			}
+			function hasDownClue(cell){
+				if(cell.attr('downclue') && (cell.attr('downclue')!=-1)){
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			function hasAcrossClue(cell){
+				if(cell.attr('acrossclue') && (cell.attr('acrossclue')!=-1)){
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			function downClue(cell){
+				return cell.attr('downclue');
+			}
+			function acrossClue(cell){
+				return cell.attr('acrossclue');
+			}
+			
+			function getCellAbove(cell){
+				return $($cells[getCellIndex(cell)-numCols]);
+			}
+			function getCellBelow(cell){
+				return $($cells[getCellIndex(cell)+numCols]);
+			}
+			function getCellLeft(cell){
+				return $($cells[getCellIndex(cell)-1]);
+			}
+			function getCellRight(cell){
+				return $($cells[getCellIndex(cell)+1]);
+			}
+			
 			//Helper function for making a cell void and toggling a cell void
 			function makeVoid(cell){
 				removeCorrectness(cell);
@@ -98,6 +162,11 @@
 			function removeCorrectness(cell){
 				cell.removeClass('correct');
 				cell.removeClass('incorrect');
+			}
+			
+			//Helper function to say whether a cell is void
+			function isVoid(cell){
+				return cell.hasClass('void');
 			}
 			
 			/*
@@ -258,7 +327,7 @@
 			
 			//Clue functions
 			function getClueOrientation(){	
-				if($('.acrossDownAddClue').attr('checked')){
+				if($('#acrossDownAddClue').attr('checked')){
 					return 'across';
 				}
 				else {
@@ -347,23 +416,33 @@
 				});
 				
 				$(".cell").hover(function(){
-					if ($(this).attr('cellnumber')>-1){
-						$('#curClueA').text($(this).attr('cellnumber'));
-						$('#curClueD').text($(this).attr('cellnumber'));
-					}
-					if($(this).attr('acrossclue') && ($(this).attr('acrossclue')!=-1)){
-						$('#acrossP').text($(this).attr('acrossclue'));
-					}
-					else {
-						$('#acrossP').text('None.');
-					}
-					if($(this).attr('downclue') && ($(this).attr('downclue')!=-1)){
-						$('#downP').text($(this).attr('downclue'));
+					if (getClueLeft($(this))){
+						if($('.curA').is(":hidden")){
+							$('.curA').show();
+						}
+						$('#curClueA').text(parseFloat(getClueLeft($(this))['Number']));
+						$('#acrossP').text(getClueLeft($(this))['Clue']);
 					}
 					else {
-						$('#downP').text('None.');
+						if($('.curA').is(":visible")){
+							$('.curA').hide();
+						}
+					}
+					if (getClueAbove($(this))){
+						if($('.curD').is(":hidden")){
+							$('.curD').show();
+						}
+						$('#curClueD').text(parseFloat(getClueAbove($(this))['Number']));
+						$('#downP').text(getClueAbove($(this))['Clue']);
+					}
+					else {
+						if($('.curD').is(":visible")){
+							$('.curD').hide();
+						}
 					}
 				});
+				
+				//Prevents non-digit values from being typed in cell number textbox
 				$('.numbersOnly').keyup(function () { 
    					this.value = this.value.replace(/[^0-9\.]/g,'');
 				});
@@ -611,6 +690,7 @@
 			#currentClue {
 				overflow: auto;
 				position: relative;
+				min-height: 125px;
 			}
 			.clueP {
 				font-size: 12px;
@@ -663,6 +743,9 @@
 			.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
 				right: 0px; 
 			}
+			.curA, .curD {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -683,10 +766,10 @@
 					<hr />
 					<div id="currentClue">
 						<h5>Current Clues</h5>
-						<h6><span id="curClueA">?</span> Across</h6>
-						<p class="clueP" id="acrossP">???</p>
-						<h6><span id="curClueD">?</span> Down</h6>
-						<p class="clueP" id="downP">???</p>
+						<h6 class="curA"><span id="curClueA">?</span>-Across</h6>
+						<p class="clueP curA" id="acrossP">???</p>
+						<h6 class="curD"><span id="curClueD">?</span>-Down</h6>
+						<p class="clueP curD" id="downP">???</p>
 					</div>
 					<hr />
 					<div id="clueForm">
