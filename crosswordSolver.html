@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
 			// HTML contents of cells and rows
-			var cell = '<div class="cellContainer"><input class="cell" type="text" cellnumber="-1" acrossclue=-"1" downclue="-1" maxlength="1"></input><div class="cellNum"></div></div>';
+			var cell = '<div class="cellContainer"><input class="cell" type="text" cellnumber=-1 acrossclue=-1 downclue=-1 maxlength="1"></input><div class="cellNum"></div></div>';
 			var row = '<div class="row"></div>';
 			
 			// Essentially static variables for this iteration of the site
@@ -197,7 +197,7 @@
 					$cell = $($cells[i]);
 					$cellNum = $($cellNums[i]);
 					
-					if(!$cell.hasClass('void') && !isLoneCell(i)){
+					if(!$cell.hasClass('void') && (!isLoneCell(i)||(!$('#skipSingles').attr('checked')))){
 						if(isTopRowCell(i)){
 							addNumber($cell,$cellNum);
 						}
@@ -344,6 +344,24 @@
 						toggleVoid($(this));
 					}
 				});
+				$(".cell").hover(function(){
+					if ($(this).attr('cellnumber')>-1){
+						$('#curClueA').text($(this).attr('cellnumber'));
+						$('#curClueD').text($(this).attr('cellnumber'));
+					}
+					if($(this).attr('acrossclue') && ($(this).attr('acrossclue')!=-1)){
+						$('#acrossP').text($(this).attr('acrossclue'));
+					}
+					else {
+						$('#acrossP').text('None.');
+					}
+					if($(this).attr('downclue') && ($(this).attr('downclue')!=-1)){
+						$('#downP').text($(this).attr('downclue'));
+					}
+					else {
+						$('#downP').text('None.');
+					}
+				});
 				$('.numbersOnly').keyup(function () { 
    					this.value = this.value.replace(/[^0-9\.]/g,'');
 				});
@@ -364,6 +382,9 @@
 				border-width: 1px;
 				text-align: center;
 				position: relative;
+			}
+			input.cell:not(.void):hover {
+				background-color: #F9FCC6;
 			}
 			div.row {
 				clear: both;
@@ -445,6 +466,10 @@
 				margin: 0em 0 0.5em 0;
 				clear: left;
 			}
+			h6 {
+				margin: 0em 0 0.5em 0;
+				clear: left;
+			}
 			#credit {
 				position: absolute;
 				bottom: 0em;
@@ -467,7 +492,7 @@
 			}
 			.mode {
 				overflow: auto;
-				margin-left: 0.8em;
+				margin-left: 7em;
 				margin-bottom: 0.5em;
 			}
 			button{
@@ -560,30 +585,53 @@
 				height: 22px;
 				padding: 0px 1px;
 				margin: 0.3em 0.1em;
-				height: 22px;
 			}
 			hr {
 				clear: left;
-				margin-bottom: 0.3em;
+				margin: 0.3em 0 0.3em 0;
 			}			
-
+			#skipSingleContainer {
+				float: left;
+				width: 40px;
+				font-size: 9px;
+				line-height: 6px;
+			}
+			#skipSingleContainer input[type='checkbox']{
+				width: 6px;
+				height: 10px;
+			}
+			#currentClue {
+				overflow: auto;
+				position: relative;
+			}
+			.clueP {
+				font-size: 12px;
+			}
 		</style>
 	</head>
 	<body>
 		<div id='puzzleBox'>
 			<h3>Crossword Wizard</h3>
 			<div id="leftControls">
-									<h5>Puzzle Controls</h5>
-					<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;">Clear Voids</button>
-					<button value="Void All" id="voidAll" onclick="makeVoid($('.cell')); return false;">Void All</button>
-					<hr />
-					<button value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>Re-number</button>
-					<input type="checkbox" id="skipSingles" /><span>Skip singles?</span>
-					<br/>
+				<h5>Puzzle Controls</h5>
+				<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;">Clear Voids</button>
+				<button value="Void All" id="voidAll" onclick="makeVoid($('.cell')); return false;">Void All</button>
+				<hr />
+				<button value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>Re-number</button>
+				<div id="skipSingleContainer"><input type="checkbox" id="skipSingles" />&nbsp;&nbsp;<span>Skip &nbsp;&nbsp;singles?</span></div>
+				<hr />
 			</div>
 			<div id="topPuzzleBox">
 				<div id='cword'></div>
 				<div id='cwordControls'>
+					<div id="currentClue">
+						<h5>Current Clues</h5>
+						<h6><span id="curClueA">?</span> Across</h6>
+						<p class="clueP" id="acrossP">???</p>
+						<h6><span id="curClueD">?</span> Down</h6>
+						<p class="clueP" id="downP">???</p>
+					</div>
+					<hr />
 					<div id="clueForm">
 						<h5>Add Clues</h5>
 						<div id="clueCellID">
@@ -606,7 +654,6 @@
 					<h5>Cheat</h5>
 					<input type="button" value="See Solution" id="solution" onclick="compareAnswers(); return false;"/><br />
 					<span id='cheatResult'></span>
-					<hr />
 				</div>
 			</div>
 			<div id="botPuzzleBox">
