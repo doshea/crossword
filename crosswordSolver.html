@@ -49,6 +49,11 @@
 			function removeApostrophes(stringWithApostrophes){
 				return stringWithApostrophes.replace(/'/g, '');
 			}
+			function sanitizeClue(clueString){
+				var newString = clueString.replace(/"/g, '\'\'')
+				newString = newString.replace(/\'/g, '\\\'')
+				return newString;
+			}
 			
 			// Functions for determining whether a cell in the crossword is an edge cell.
 			function isTopRowCell(cellNumber){
