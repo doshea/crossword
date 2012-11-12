@@ -3,7 +3,7 @@
 	<head>
 		<link rel="shortcut icon" href="http://i.imgur.com/gA3TP.png">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Crossword Constructor</title>
+		<title>Crossword Wizard</title>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
 			// HTML contents of cells and rows
@@ -238,22 +238,52 @@
 				}
 			}
 			function outputClues(){
-				var cellArray = new Array();
-				for (var i =0; i<$cells.length; i++){
-					$cell = $($cells[i]);
-					var cellDict = {'across': '','down':''};
-					if (!$cell.hasClass('void')){
-						cellDict['across'] = ($cell.attr('acrossclue')!=-1)? $cell.attr('acrossclue') :'';
-						cellDict['down'] = ($cell.attr('downclue')!=-1)? $cell.attr('downclue') :'';
-					}
+				var clueString = '[';
+				var $numberedCells = $('.cell[cellnumber != "-1"]');
+				for (var i = 0; i< $numberedCells.length; i++){
+					var $cell = $($numberedCells[i]);
+					if(i==0){
+						if(hasAcrossClue($cell)){
+							clueString += ('{"Across":"'+$cell.attr('acrossClue')+'",');
+						}
+						else {
+							clueString += '{"Across":"",';
+						}
+						if(hasDownClue($cell)){
+							clueString += ('"Down":"' + $cell.attr('downClue')+'"}');
+						}
+						else {
+							clueString += '"Down":""}';
+						}
+					} 
 					else {
+						if(hasAcrossClue($cell)){
+							clueString += (',{"Across":"'+$cell.attr('acrossClue')+'",');
+						}
+						else {
+							clueString += '{"Across":"",';
+						}
+						if(hasDownClue($cell)){
+							clueString += ('"Down":"' + $cell.attr('downClue')+'"}');
+						}
+						else {
+							clueString += '"Down":""}';
+						}
 					}
-					cellArray[i] = cellDict;
 				}
-				return cellArray;
+				clueString += ']';
+				return clueString;
 			}
-			function inputClues(){
-			
+			function inputClues(JSONClueString){
+				var arrayOfAssociativeClueArray = JSON.parse(JSONClueString);
+				for(var i = 0; i< arrayOfAssociativeClueArray.length; i++){
+					if(arrayOfAssociativeClueArray[i]['Across']){
+						$('.cell[cellnumber ='+ (i+1)+']').attr('acrossclue',arrayOfAssociativeClueArray[i]['Across']);
+					}
+					if(arrayOfAssociativeClueArray[i]['Down']){
+						$('.cell[cellnumber ='+(i+1)+']').attr('downclue',arrayOfAssociativeClueArray[i]['Down']);
+					}
+				}	
 			}
 			
 			//Function to automatically number the cells of a blank puzzle
