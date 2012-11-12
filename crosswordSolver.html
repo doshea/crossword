@@ -261,7 +261,7 @@
 							clueString += (',{"Across":"'+$cell.attr('acrossClue')+'",');
 						}
 						else {
-							clueString += '{"Across":"",';
+							clueString += ',{"Across":"",';
 						}
 						if(hasDownClue($cell)){
 							clueString += ('"Down":"' + $cell.attr('downClue')+'"}');
@@ -841,7 +841,7 @@
 				<button class='inputOutputButton' value="Output Voids" id="outputVoids" onclick="$('#cwordInputOutput').val('['+outputVoids().join(',')+']'); return false;">Output Voids</button>
 				<button class='inputOutputButton' value="Input Letters" id="inputLetters" onclick="inputLetters($('#cwordInputOutput').val()); return false;">Input Letters</button>
 				<button class='inputOutputButton' value="Output Letters" id="outputLetters" onclick="$('#cwordInputOutput').val('['+outputLetters().join(',')+']'); return false;">Output Letters</button>
-				<button class='inputOutputButton' value="Input Clues" id="inputClues" onclick="return false;">Input Clues</button>
+				<button class='inputOutputButton' value="Input Clues" id="inputClues" onclick="inputClues($('#cwordInputOutput').val());return false;">Input Clues</button>
 				<button class='inputOutputButton' value="Output Clues" id="outputClues" onclick="$('#cwordInputOutput').val(outputClues()); return false;">Output Clues</button>
 				<br />
 				<div id="credit">Made by Dylan O'Shea, 2012</div>
