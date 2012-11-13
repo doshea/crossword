@@ -484,7 +484,15 @@
 				$('.numbersOnly').keyup(function () { 
    					this.value = this.value.replace(/[^0-9\.]/g,'');
 				});
-				
+				//When a user changes 
+				$('#skipSingles').change(function() {
+					if(!$('#skipSingles').prop("checked")){
+						var changeSkipBox = confirm('Be careful. Most crossword puzzles do not contain one-letter words.\n\nThose that do generally don\'t number them. Although we provide the option, this box should probably remain checked.');
+						if(!changeSkipBox){
+							$('#skipSingles').prop("checked", !$('#skipSingles').prop("checked"));
+						}
+					}
+				});
 
 				updateRCTip();
 			});
