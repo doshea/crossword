@@ -452,37 +452,101 @@
 					}
 				});
 				
-				//When the user hovers over a cell, its clues are dynamically displayed
-				$(".cell").hover(function(){
-					if (getClueLeft($(this))){
-						if($('.curA').is(":hidden")){
-							$('.curA').show();
+				//When the user hovers or focuses a cell, its clues are dynamically displayed and it is highlighted
+				$cells.bind('mouseenter',
+					function(){
+						$cells.removeClass('hoverCell');
+						$(this).addClass('hoverCell');
+						if (getClueLeft($(this))){
+							if($('.curA').is(":hidden")){
+								$('.curA').show();
+							}
+							$('#curClueA').text(getClueLeft($(this))['Number']);
+							$('#acrossP').text(getClueLeft($(this))['Clue']);
 						}
-						$('#curClueA').text(getClueLeft($(this))['Number']);
-						$('#acrossP').text(getClueLeft($(this))['Clue']);
-					}
-					else {
-						if($('.curA').is(":visible")){
-							$('.curA').hide();
+						else {
+							if($('.curA').is(":visible")){
+								$('.curA').hide();
+							}
+						}
+						if (getClueAbove($(this))){
+							if($('.curD').is(":hidden")){
+								$('.curD').show();
+							}
+							$('#curClueD').text(getClueAbove($(this))['Number']);
+							$('#downP').text(getClueAbove($(this))['Clue']);
+						}
+						else {
+							if($('.curD').is(":visible")){
+								$('.curD').hide();
+							}
 						}
 					}
-					if (getClueAbove($(this))){
-						if($('.curD').is(":hidden")){
-							$('.curD').show();
-						}
-						$('#curClueD').text(getClueAbove($(this))['Number']);
-						$('#downP').text(getClueAbove($(this))['Clue']);
+				);
+				$cells.bind('mouseleave',
+					function(){
+						$(this).removeClass('hoverCell');
 					}
-					else {
-						if($('.curD').is(":visible")){
-							$('.curD').hide();
+				);
+				$cells.bind('focusin',
+					function(){
+						$cells.removeClass('hoverCell');
+						$(this).addClass('hoverCell');
+						if (getClueLeft($(this))){
+							if($('.curA').is(":hidden")){
+								$('.curA').show();
+							}
+							$('#curClueA').text(getClueLeft($(this))['Number']);
+							$('#acrossP').text(getClueLeft($(this))['Clue']);
 						}
+						else {
+							if($('.curA').is(":visible")){
+								$('.curA').hide();
+							}
+						}
+						if (getClueAbove($(this))){
+							if($('.curD').is(":hidden")){
+								$('.curD').show();
+							}
+							$('#curClueD').text(getClueAbove($(this))['Number']);
+							$('#downP').text(getClueAbove($(this))['Clue']);
+						}
+						else {
+							if($('.curD').is(":visible")){
+								$('.curD').hide();
+							}
+						}
+					});					
+				$cells.bind('focusout',
+					function(){
+						$(this).removeClass('hoverCell');
 					}
-				});
+				);
 				
 				//Prevents non-digit values from being typed in cell number textbox
 				$('.numbersOnly').keyup(function () { 
    					this.value = this.value.replace(/[^0-9\.]/g,'');
+				});
+				
+				$cells.bind('keydown',function(event){
+					switch (event.which) {
+						case 13:
+							getCellBelow(this).focus();
+							break;
+						case 37:
+							getCellLeft(this).focus();
+							break;
+						case 38:
+							getCellAbove(this).focus();
+							break;
+						case 39:
+							getCellRight(this).focus();
+							break;
+						case 40:
+							getCellBelow(this).focus();
+							break;
+							
+					}
 				});
 				//Warning alert when a user un-checks Skip Singles
 				$('#skipSingles').change(function() {
@@ -518,8 +582,8 @@
 				position: relative;
 				text-transform: uppercase;
 			}
-			input.cell:not(.void):hover {
-				background-color: #F9FCC6;
+			input.cell:not(.void).hoverCell {
+				background-color: #F9FCC6 !important;
 			}
 			div.row {
 				clear: both;
