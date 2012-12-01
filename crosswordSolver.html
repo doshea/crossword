@@ -3,7 +3,9 @@
 	<head>
 		<link rel="shortcut icon" href="http://i.imgur.com/gA3TP.png">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Crossword Wizard</title>
+		<meta name="description" content="Easily create and solve crossword puzzles!" />
+		<meta name="keywords" content="crossword, puzzle, solver" />
+		<title>Crossword Café</title>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script type="text/javascript">
 			// HTML contents of cells and rows
@@ -528,6 +530,7 @@
    					this.value = this.value.replace(/[^0-9\.]/g,'');
 				});
 				
+				//Quick cell navigation key binds
 				$cells.bind('keydown',function(event){
 					switch (event.which) {
 						case 13:
@@ -569,6 +572,15 @@
 
 				updateRCTip();
 			});
+			
+			// Allows preloading of images
+			function preload(arrayOfImages) {
+				$(arrayOfImages).each(function(){
+					$('<img/>')[0].src = this;
+					// Alternatively you could use:
+					// (new Image()).src = this;
+				});
+			};
 		</script>
 		<style type="text/css">
 			input.cell {
@@ -613,8 +625,17 @@
 			}
 			body {
 				margin: 0;
-				padding: 1em;
 				font-family:'Helvetica Neue',Arial,sans-serif;
+				z-index: -4;
+				position: relative;
+				background-image: url(http://www.pulsarecard.com/data/media/18/Pattern_Wood.jpg);
+			}
+			#background {
+				background-image: url(http://www.pulsarecard.com/data/media/18/Pattern_Wood.jpg);
+				padding: 1em;
+				position: relative;
+				z-index: -2;
+				
 			}
 			#cword {
 				overflow: auto;
@@ -656,6 +677,7 @@
 				padding: 4px;
 				background-color: #eee;
 				width: 780px;
+				margin: auto;
 			}
 			h3 {
 				text-align: center;
@@ -674,6 +696,7 @@
 				bottom: 0em;
 				right: 0em;
 				font-size: 10px;
+				font-family: cursive;
 			}
 			#topPuzzleBox {
 				width: inherit;
@@ -869,90 +892,167 @@
 			#improvementList li {
 				font-size: 12px;
 			}
+			#crossHeader {
+				width: inherit;
+				height: 54px;
+				/*background-image: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/wild_oliva.png);*/
+				/*background-image: url(http://subtlepatterns.com/patterns/dark_wood.png);*/
+				background-color: rgba(25,25,25,0.9);
+				-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+				-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+				box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+			}
+			#crossFooter {
+				width: inherit;
+				height: 30px;
+				background-color: rgba(200,200,200,0.6);
+			}
+			#crossHeaderContainer {
+				width: 950px;
+				margin: auto;
+				height: 100%;
+				position: relative;
+			}
+			#crossHeaderContainer img {
+				margin: 2px 0 2px 1em;
+				float: left;
+			}
+			.headerSpacer {
+				height: 100%;
+				max-width: 1px;
+				border-right: 1px solid #121211;
+				margin: 0;
+				float: left;
+				margin: 0;
+				position: relative;
+			}
+			.left {
+				float: left;
+			}
+			.right {
+				float: right;
+			}
+			nav.headerNav {
+				height: 100%;
+				vertical-align: middle;
+				font-weight: bold;
+				text-shadow: #111 1px 2px 0px;
+				color: #EEE;
+				line-height: 54px;
+				font-size: 12px;
+				padding: 0 2em;
+				position: relative;
+			}
+			nav.headerNav:hover {
+				background-color: rgba(255,255,255,0.2);
+			}
 		</style>
+		<!-- Preloads larger images -->
+		<script type="text/javascript">
+			$('body').hide();
+			preload(['http://www.pulsarecard.com/data/media/18/Pattern_Wood.jpg']);
+			$('body').show();
+		</script>
 	</head>
 	<body>
-		<div id='puzzleBox'>
-			<h3>Crossword Wizard</h3>
-			<div id="leftControls">
-				<h5>Puzzle Controls</h5>
-				<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;">Clear Voids</button>
-				<button value="Void All" id="voidAll" onclick="makeVoid($cells); return false;">Void All</button>
-				<hr />
-				<button value="Clear Letters" id="clearLetters" onclick="clearLetters(); return false;">Clear Letters</button>
-				<div id="allCapsContainer" class="puzControlCheckContainer"><input type="checkbox" id="allCaps" class="puzControlCheck" checked="true"/>&nbsp;&nbsp;<span>All &nbsp;&nbsp;Caps?</span></div>
-				<hr />
-				<button value="Clear Clues" id="clearClues" onclick="clearClues(); return false;">Clear Clues</button>
-				<hr />
-				<button value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>Re-number</button>
-				<div id="skipSingleContainer" class="puzControlCheckContainer"><input type="checkbox" id="skipSingles" class="puzControlCheck" checked="true"/>&nbsp;&nbsp;<span>Skip &nbsp;&nbsp;singles?</span></div>
-				<hr />
+		<div id="crossHeader">
+			<div id="crossHeaderContainer" >
+				<img src="http://i.imgur.com/ZQegw.jpg" />
+				<div class="headerSpacer"></div>
+				<nav class="left headerNav">h
+					<div class="headerSpacer left"></div>
+				</nav>
+				<nav class="right headerNav">
+					<div class="headerSpacer right"></div>
+					Me
+					<div class="headerSpacer right"></div>
+				</nav>
 			</div>
-			<div id="topPuzzleBox">
-				<div id='cword'></div>
-				<div id='cwordControls'>
+			
+		</div>
+		<div id='background'>
+			<div id='puzzleBox'>
+				<div id="leftControls">
+					<h5>Puzzle Controls</h5>
+					<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;">Clear Voids</button>
+					<button value="Void All" id="voidAll" onclick="makeVoid($cells); return false;">Void All</button>
 					<hr />
-					<div id="currentClue">
-						<h5>Current Clues</h5>
-						<h6 class="curA"><span id="curClueA">?</span>-Across</h6>
-						<p class="clueP curA" id="acrossP">???</p>
-						<h6 class="curD"><span id="curClueD">?</span>-Down</h6>
-						<p class="clueP curD" id="downP">???</p>
-					</div>
+					<button value="Clear Letters" id="clearLetters" onclick="clearLetters(); return false;">Clear Letters</button>
+					<div id="allCapsContainer" class="puzControlCheckContainer"><input type="checkbox" id="allCaps" class="puzControlCheck" checked="true"/>&nbsp;&nbsp;<span>All &nbsp;&nbsp;Caps?</span></div>
 					<hr />
-					<div id="clueForm">
-						<h5>Add Clues</h5>
-						<textarea id ="clueInput" placeholder="Clue" cols="39"></textarea>
-						<div id="clueCellID">
-							<span id="clueCellIDtitle">Cell #</span>
-							<input type="text" maxlength="2" id="clueCell" class="numbersOnly"/>
-							<div class="onoffswitch">
-							<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="acrossDownAddClue" checked>
-								<label class="onoffswitch-label" for="acrossDownAddClue">
-									<div class="onoffswitch-inner">
-										<div class="onoffswitch-active">Across</div>
-										<div class="onoffswitch-inactive">Down</div>
-									</div>
-									<div class="onoffswitch-switch"></div>
-								</label>
-							</div>
-							<input type="checkbox" name="replaceClue" value="Replace?" checked><span class="smallText">Replace?</span></input>
-							<button id="clueButton" value="Add Clue" onclick="addClue(getClueText(),getClueCellNumber(),getClueOrientation()); $('#clueInput').val('');$('#clueCell').val('');return false;" >Add Clue</button>
+					<button value="Clear Clues" id="clearClues" onclick="clearClues(); return false;">Clear Clues</button>
+					<hr />
+					<button value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells(); return false;"/>Re-number</button>
+					<div id="skipSingleContainer" class="puzControlCheckContainer"><input type="checkbox" id="skipSingles" class="puzControlCheck" checked="true"/>&nbsp;&nbsp;<span>Skip &nbsp;&nbsp;singles?</span></div>
+					<hr />
+				</div>
+				<div id="topPuzzleBox">
+					<div id='cword'></div>
+					<div id='cwordControls'>
+						<hr />
+						<div id="currentClue">
+							<h5>Current Clues</h5>
+							<h6 class="curA"><span id="curClueA">?</span>-Across</h6>
+							<p class="clueP curA" id="acrossP">???</p>
+							<h6 class="curD"><span id="curClueD">?</span>-Down</h6>
+							<p class="clueP curD" id="downP">???</p>
 						</div>
+						<hr />
+						<div id="clueForm">
+							<h5>Add Clues</h5>
+							<textarea id ="clueInput" placeholder="Clue" cols="39"></textarea>
+							<div id="clueCellID">
+								<span id="clueCellIDtitle">Cell #</span>
+								<input type="text" maxlength="2" id="clueCell" class="numbersOnly"/>
+								<div class="onoffswitch">
+								<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="acrossDownAddClue" checked>
+									<label class="onoffswitch-label" for="acrossDownAddClue">
+										<div class="onoffswitch-inner">
+											<div class="onoffswitch-active">Across</div>
+											<div class="onoffswitch-inactive">Down</div>
+										</div>
+										<div class="onoffswitch-switch"></div>
+									</label>
+								</div>
+								<input type="checkbox" name="replaceClue" value="Replace?" checked><span class="smallText">Replace?</span></input>
+								<button id="clueButton" value="Add Clue" onclick="addClue(getClueText(),getClueCellNumber(),getClueOrientation()); $('#clueInput').val('');$('#clueCell').val('');return false;" >Add Clue</button>
+							</div>
+						</div>
+						<hr />
+						<h5>Load Popular Puzzles</h5>
+						<input type="button" value="Locke #1" id="locke1" onclick="clearCells(); clearClues(); inputVoids(andrewsCrossword1); numberCells(); currentSol = lockeSol1; inputClues(lockeSol1Clues); return false;" />
+						<input type="button" value="Locke #2" id="locke2" onclick="clearCells(); clearClues(); inputVoids(andrewsCrossword2); numberCells(); currentSol = lockeSol2; inputClues(lockeSol2Clues); return false;" />
+						<hr />
+						<h5>Check Solution/Cheat Like A Hobo</h5>
+						<input type="button" value="See Solution" id="solution" onclick="compareAnswers(); return false;"/><br />
+						<span id='cheatResult'></span>
 					</div>
-					<hr />
-					<h5>Load Popular Puzzles</h5>
-					<input type="button" value="Locke #1" id="locke1" onclick="clearCells(); clearClues(); inputVoids(andrewsCrossword1); numberCells(); currentSol = lockeSol1; inputClues(lockeSol1Clues); return false;" />
-					<input type="button" value="Locke #2" id="locke2" onclick="clearCells(); clearClues(); inputVoids(andrewsCrossword2); numberCells(); currentSol = lockeSol2; inputClues(lockeSol2Clues); return false;" />
-					<hr />
-					<h5>Check Solution/Cheat Like A Hobo</h5>
-					<input type="button" value="See Solution" id="solution" onclick="compareAnswers(); return false;"/><br />
-					<span id='cheatResult'></span>
+				</div>
+				<div id="botPuzzleBox">
+					<div class="mode"><span class="left">Current Mode: &nbsp;</span><button id="modeButton" class="solveMode left" value="SOLVE" onclick="toggleMode(); return false;">SOLVE</button><div id="dimTip" class="left"><span id="rowDim">?</span><span>&nbsp;x&nbsp;</span><span id="colDim">?</span></div></div>
+					<h5>Puzzle Data (comma-separated)</h5>
+					<textarea id="cwordInputOutput" rows = "3" cols="100" placeholder="Input or output data about this crossword"></textarea>
+					<button class='inputOutputButton' value="Input Voids" id="inputVoids" onclick=" inputVoids($('#cwordInputOutput').val()); return false;">Input Voids</button>
+					<button class='inputOutputButton' value="Output Voids" id="outputVoids" onclick="$('#cwordInputOutput').val('['+outputVoids().join(',')+']'); return false;">Output Voids</button>
+					<button class='inputOutputButton' value="Input Letters" id="inputLetters" onclick="inputLetters($('#cwordInputOutput').val()); return false;">Input Letters</button>
+					<button class='inputOutputButton' value="Output Letters" id="outputLetters" onclick="$('#cwordInputOutput').val('['+outputLetters().join(',')+']'); return false;">Output Letters</button>
+					<button class='inputOutputButton' value="Input Clues" id="inputClues" onclick="inputClues($('#cwordInputOutput').val());return false;">Input Clues</button>
+					<button class='inputOutputButton' value="Output Clues" id="outputClues" onclick="$('#cwordInputOutput').val(outputClues()); return false;">Output Clues</button>
+					<br />
 				</div>
 			</div>
-			<div id="botPuzzleBox">
-				<div class="mode"><span class="left">Current Mode: &nbsp;</span><button id="modeButton" class="solveMode left" value="SOLVE" onclick="toggleMode(); return false;">SOLVE</button><div id="dimTip" class="left"><span id="rowDim">?</span><span>&nbsp;x&nbsp;</span><span id="colDim">?</span></div></div>
-				<h5>Puzzle Data (comma-separated)</h5>
-				<textarea id="cwordInputOutput" rows = "3" cols="100" placeholder="Input or output data about this crossword"></textarea>
-				<button class='inputOutputButton' value="Input Voids" id="inputVoids" onclick=" inputVoids($('#cwordInputOutput').val()); return false;">Input Voids</button>
-				<button class='inputOutputButton' value="Output Voids" id="outputVoids" onclick="$('#cwordInputOutput').val('['+outputVoids().join(',')+']'); return false;">Output Voids</button>
-				<button class='inputOutputButton' value="Input Letters" id="inputLetters" onclick="inputLetters($('#cwordInputOutput').val()); return false;">Input Letters</button>
-				<button class='inputOutputButton' value="Output Letters" id="outputLetters" onclick="$('#cwordInputOutput').val('['+outputLetters().join(',')+']'); return false;">Output Letters</button>
-				<button class='inputOutputButton' value="Input Clues" id="inputClues" onclick="inputClues($('#cwordInputOutput').val());return false;">Input Clues</button>
-				<button class='inputOutputButton' value="Output Clues" id="outputClues" onclick="$('#cwordInputOutput').val(outputClues()); return false;">Output Clues</button>
-				<br />
-				<div id="credit">Made by Dylan O'Shea, 2012</div>
-			</div>
+			<ol id="improvementList">
+				<h5>Things to Add/Improve:</h5>
+				<li>Sanitize inputs so single/double quotes don't destroy everything</li>
+				<li>Better input/output UI (two drop-downs?)</li>
+				<li>Variable number of Rows/Columns</li>
+				<li><del>Pretty</del> Not-ugly UI</li>
+				<li>Clean/simplify CSS</li>	
+			</ol>
 		</div>
-		<ol id="improvementList">
-			<h5>Things to Add/Improve:</h5>
-			<li>Sanitize inputs so single/double quotes don't destroy everything</li>
-			<li>Better input/output UI (two drop-downs?)</li>
-			<li>Variable number of Rows/Columns</li>
-			<li><del>Pretty</del> Not-ugly UI</li>
-			<li>Clean/simplify CSS</li>
-			
-		
-		</ol>
+		<div id="crossFooter">
+			copy;Dylan O'Shea, 2012
+		</div>
+		<div id="credit">Dylan O'Shea, 2012</div>
 	</body>
 </html>
