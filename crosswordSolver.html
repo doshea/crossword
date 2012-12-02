@@ -431,6 +431,11 @@
 				$('#modeButton').toggleClass('editMode solveMode');
 			}
 			
+			function toggleAdvanced(){
+				$('#pen').toggleClass('hidden');
+				$('#advControls').toggleClass('hidden');
+			}
+			
 			/*
 			Document load function that sets up the puzzle cells and prepares the dblclick
 			event listener to allow the users to change cells to and from void
@@ -459,8 +464,10 @@
 				//When the user hovers or focuses a cell, its clues are dynamically displayed and it is highlighted
 				$cells.bind('mouseenter',
 					function(){
-						$cells.removeClass('hoverCell');
-						$(this).addClass('hoverCell');
+						$('.cellContainer').removeClass('hoverCell');
+						if(!isVoid($(this))){
+							$(this).parent().addClass('hoverCell');
+						}
 						if (getClueLeft($(this))){
 							if($('.curA').is(":hidden")){
 								$('.curA').show();
@@ -489,13 +496,15 @@
 				);
 				$cells.bind('mouseleave',
 					function(){
-						$(this).removeClass('hoverCell');
+						$(this).parent().removeClass('hoverCell');
 					}
 				);
 				$cells.bind('focusin',
 					function(){
-						$cells.removeClass('hoverCell');
-						$(this).addClass('hoverCell');
+						$('.cellContainer').removeClass('hoverCell');
+						if(!isVoid($(this))){
+							$(this).parent().addClass('hoverCell');
+						}
 						if (getClueLeft($(this))){
 							if($('.curA').is(":hidden")){
 								$('.curA').show();
@@ -523,7 +532,7 @@
 					});					
 				$cells.bind('focusout',
 					function(){
-						$(this).removeClass('hoverCell');
+						$(this).parent().removeClass('hoverCell');
 					}
 				);
 				
@@ -553,6 +562,10 @@
 							
 					}
 				});
+				$('#advHeader, #advBracket, #pen').bind('click',function(){
+					toggleAdvanced();
+				});
+				
 				//Warning alert when a user un-checks Skip Singles
 				$('#skipSingles').change(function() {
 					if(!$(this).prop("checked")){
@@ -595,9 +608,10 @@
 				text-align: center;
 				position: relative;
 				text-transform: uppercase;
-				background-color: rgba(255,255,255,0.8);
+				background-color: rgba(255,255,255,0.0);
+				z-index: 500;
 			}
-			input.cell:not(.void).hoverCell {
+			.cellContainer.hoverCell {
 				background-color: #F9FCC6 !important;
 			}
 			div.row {
@@ -614,8 +628,9 @@
 				min-height: 1em;
 				max-width: 1em;
 				max-height: 1em;
-				top: 0.1em;
-				left: 0.1em;
+				top: 0em;
+				left: 0em;
+				z-index: 450;
 			}
 			.cellContainer{
 				position: relative;
@@ -623,7 +638,8 @@
 				float: left;
 				padding: 0;
 				margin: 0;
-				overflow:auto;
+				overflow:hidden;
+				z-index: 400;
 			}
 			body {
 				margin: 0;
@@ -631,6 +647,7 @@
 				z-index: -4;
 				position: relative;
 				background-image: url(http://www.pulsarecard.com/data/media/18/Pattern_Wood.jpg);
+				color: #333;
 			}
 			#background {
 				padding: 1em;
@@ -644,12 +661,12 @@
 				clear: none;
 				float: left;
 				margin: 0.5em 1em 0 0.5em;
-				background: url(http://www.hunterstanchak.com/wp-content/uploads/2011/08/Newsprint1-e1313735007687.jpg);
+				background: url(http://i.imgur.com/dWEeh.jpg);
 			}
 			#cwordControls {
 				float: left;
 				overflow: auto;
-				width: 300px;
+				width: 280px;
 			}
 			#cwordInputOutput {
 				clear: right;
@@ -672,7 +689,7 @@
 			}
 			
 			#puzzleBox {
-				height: 545px;
+				height: 600px;
 				padding: 4px;
 				width: 950px;
 				margin: auto;
@@ -691,7 +708,7 @@
 			}
 			#topPuzzleBox {
 				width: inherit;
-				height: 375px;
+				height: 450px;
 			}
 			#botPuzzleBox {
 				position: relative;
@@ -814,6 +831,7 @@
 			#leftControls img#pen {
 				margin: auto;
 				display: block;
+				padding: 0 4.2em;
 			}
 			hr {
 				clear: left;
@@ -832,7 +850,8 @@
 			#currentClue {
 				overflow: auto;
 				position: relative;
-				min-height: 125px;
+				min-height: 280px;
+				background: url(http://i.imgur.com/xzFTv.png);
 			}
 			.clueP {
 				font-size: 12px;
@@ -887,6 +906,9 @@
 			}
 			.curA, .curD {
 				display: none;
+				margin-left: 2em;
+				margin-right: 2em;
+				font-size: 14px;
 			}
 			#improvementList li {
 				font-size: 12px;
@@ -945,7 +967,7 @@
 				color: #EEE;
 				line-height: 54px;
 				font-size: 12px;
-				padding: 0 2em;
+				padding: 0;
 				position: relative;
 			}
 			nav.headerNav div {
@@ -953,12 +975,13 @@
 				position: relative;
 				float: inherit;
 				padding: 0 1em;
+				
 			}
 			nav.headerNav div:hover {
 				background-color: rgba(255,255,255,0.2);
 			}
 			.hidden {
-				display: none;
+				display: none !important;
 			}
 			#headQuote {
 				margin: 0 2em;
@@ -970,6 +993,29 @@
 				float: left;
 				height: 100%;
 				line-height: 54px;				
+			}
+			#advBracket {
+				text-align: center;
+				margin: auto;
+				display: block;
+				padding-right: 0.5em;
+				margin-bottom: 0.25em;
+				opacity: 0.8;
+			}
+			#advHeader {				
+				text-align: center;
+				margin-top: 0.5em;
+				font-size: 1.2em;
+				margin-bottom: 0em;
+				padding-right: 0.5em;
+			}
+			#clueHeader {
+				font-size: 1.2em;
+				text-align: center;
+				margin-top: 1.5em;
+			}
+			.pointer:hover {
+				cursor: pointer;
 			}
 		</style>
 		<!-- Preloads larger images -->
@@ -990,20 +1036,22 @@
 				<div id="headQuote">“A writer is someone who can make a riddle out of an answer.”</div>
 				<nav class="right headerNav">
 					<span class="headerSpacer right"></span>
-					<div>Me</div>
+					<div>My Account</div>
 					<span class="headerSpacer right"></span>
 					<div>Load Puzzle</div>
 					<span class="headerSpacer right"></span>
+					<div>New Puzzle</div>
+					<span class="headerSpacer right"></span>
 				</nav>
 			</div>
-			
 		</div>
 		<div id='background'>
 			<div id='puzzleBox'>
 				<div id="leftControls">
-					<h5>Advanced</h5>
-					<img id="pen" src="http://i.imgur.com/QZRCM.png" height="80%" />
-					<div id="advancedControls" class="hidden">
+					<h5 id="advHeader" class="pointer">Advanced</h5>
+					<img id="advBracket" class="pointer" src="http://i.imgur.com/Bs8HM.png" width="65%" height="24em" />
+					<img id="pen" class="pointer" src="http://i.imgur.com/QZRCM.png" height="75%" />
+					<div id="advControls" class="hidden">
 						<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers(); return false;">Clear Voids</button>
 						<button value="Void All" id="voidAll" onclick="makeVoid($cells); return false;">Void All</button>
 						<hr />
@@ -1019,9 +1067,10 @@
 				</div>
 				<div id="topPuzzleBox">
 					<div id='cword' class="shadow"></div>
+					
 					<div id='cwordControls'>
 						<div id="currentClue">
-							<h5>Current Clues</h5>
+							<h5 id="clueHeader">Clues</h5>
 							<h6 class="curA"><span id="curClueA">?</span>-Across</h6>
 							<p class="clueP curA" id="acrossP">???</p>
 							<h6 class="curD"><span id="curClueD">?</span>-Down</h6>
