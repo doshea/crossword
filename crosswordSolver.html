@@ -436,9 +436,10 @@
 					}
 				}
 				var congrats = (correctLetters > 0.8*totalLetters)? 'Awesome job!' : 'Sucks, brah.';
-				$('#cheatResult').text('You got '+ correctLetters + ' out of ' + totalLetters+' correct. ' + congrats);
+				$('#cheatResult').css({opacity: 1}).text('You got '+ correctLetters + ' out of ' + totalLetters+' correct. ' + congrats);
 			}
 			function showIncorrect(){
+				var incorrectLetters = 0;
 				for(var i = 0; i< $cells.length; i++){
 					$cell = $($cells[i]);
 					if (!$cell.hasClass('void')){
@@ -447,7 +448,13 @@
 						}
 					}
 				}
-				$('.flashRed').animate({backgroundColor: 'rgba(255,192,203,1)'}, 500,'linear').animate({backgroundColor: 'rgba(255,255,255,0)'}, 1500, 'linear').removeClass('flashRed');
+				if($('.flashRed').length == 0){
+					$('#cheatResult').text('You solved the puzzle!').animate({opacity: 1}, 'fast','linear');
+				} else {
+					$('#cheatResult').text('Still ' + $('.flashRed').length + ' letters to solve!').animate({opacity: 1},500, 'linear').delay(1000);
+					$('.flashRed').animate({backgroundColor: 'rgba(255,192,203,1)'}, 250,'linear').animate({backgroundColor: 'rgba(255,255,255,0)'}, 1000, 'linear').removeClass('flashRed');
+					$('#cheatResult').animate({opacity: 0},'medium');
+				}
 			}
 			
 			//Function that changes the crossword from Edit Mode to Solve Mode and back
@@ -645,7 +652,7 @@
 				clear: both;
 			}
 			input.void {
-				background-color: black;
+				background-color: black !important;
 			}
 			.cellNum {
 				position: absolute;
@@ -1007,15 +1014,20 @@
 				padding: 0;
 				background-color: rgba(25,25,25,0.9);
 				display: none;
-			}
-			nav.headerNav div ul li:first{
-				border-top: 1px solid #BBB;
+				border-radius: 0 0 0.75em 0.75em;
 			}
 			nav.headerNav div ul li{
 				text-align: center;
 				border-bottom: 1px solid #BBB;
 				height: 2.5em;
 				line-height: 2.5em;
+			}
+			nav.headerNav div ul li:nth-child(1){
+				border-top: 1px solid #BBB;
+			}
+			nav.headerNav div ul li:nth-child(3){
+				border-radius: inherit;
+				border-bottom: 0px;
 			}
 			nav.headerNav div ul li:hover{
 				background-color: rgba(255,255,255,0.2);
@@ -1089,6 +1101,26 @@
 				height: 0.5em;
 				right: 40%;
 				top: 3.6em;
+			}
+			#results {
+				background-color: whitesmoke;
+				border-radius: 0.5em;
+				padding: 0.3em 0.5em;
+				height: 5em;
+				margin-top: 2em;
+				position: relative;
+			}
+			#results input {
+				display: inline-block;
+			}
+			#cheat {
+				position: absolute;
+				right: 1em;
+				bottom: 0.5em;
+			}
+			#showIncorrect {
+				font-size: 14px;
+				font-weight: bold;
 			}
 		</style>
 		<!-- Preloads larger images -->
@@ -1193,9 +1225,11 @@
 							<button id="clueButton" value="Add Clue" onclick="addClue(getClueText(),getClueCellNumber(),getClueOrientation()); $('#clueInput').val('');$('#clueCell').val('');" >Add Clue</button>
 						</div>
 					</div>
-					<input type="button" value="Show Incorrect" onclick="showIncorrect();"/><br />
-					<input type="button" value="Cheat!" id="solution" onclick="cheat();"/><br />
-					<span id='cheatResult'></span>
+					<div id="results">
+						<input type="button" value="Show Incorrect" id="showIncorrect" onclick="showIncorrect();"/>
+						<div id='cheatResult'></div>
+						<input type="button" value="Cheat!" id="cheat" onclick="cheat();"/>
+					</div>
 				</div>
 			</div>
 			<div id="botPuzzleBox" class="editTools">
