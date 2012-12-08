@@ -554,6 +554,9 @@
 						$(this).parent().removeClass('hoverCell');
 					}
 				);
+				$cells.click(function(){
+					this.select();
+				});
 				
 				//Prevents non-digit values from being typed in cell number textbox
 				$('.numbersOnly').keyup(function () { 
@@ -623,6 +626,7 @@
 					// (new Image()).src = this;
 				});
 			};
+			
 		</script>
 		<style type="text/css">
 			html {
