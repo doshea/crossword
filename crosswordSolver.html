@@ -629,104 +629,10 @@
 			
 		</script>
 		<style type="text/css">
-			html {
-				background: url(http://www.pulsarecard.com/data/media/18/Pattern_Wood.jpg) no-repeat center center fixed;
-				-webkit-background-size: cover;
-				-moz-background-size: cover;
-				-o-background-size: cover;
-				background-size: cover;
-				height: 100%;
-			}
-			input.cell {
-				max-width: 1em;
-				margin: 0;
-				font-size: 125%;
-				padding: 0.125em;
-				border: solid 0.0625em black;
-				text-align: center;
-				position: relative;
-				text-transform: uppercase;
-				background-color: rgba(255,255,255,0.0);
-				z-index: 500;
-			}
-			.cellContainer.hoverCell {
-				background-color: #F9FCC6 !important;
-			}
-			div.row {
-				clear: both;
-			}
-			input.void {
-				background-color: black !important;
-			}
-			.cellNum {
-				position: absolute;
-				font-size: 10px;
-				min-width: 1em;
-				min-height: 1em;
-				max-width: 1em;
-				max-height: 1em;
-				top: 0em;
-				left: 0.1em;
-				z-index: 450;
-			}
-			.cellContainer{
-				position: relative;
-				border: 0;
-				float: left;
-				padding: 0;
-				margin: 0;
-				overflow:hidden;
-				z-index: 400;
-				min-width: 1.6em;
-			}
-			body {
-				margin: 0;
-				font-family:'Helvetica Neue',Arial,sans-serif;
-				z-index: -4;
-				position: relative;
-				color: #333;
-				background-color: rgba(255,255,255,0.15);
-				height: 100%;
-				min-height: 38em;
-			}
-			#cword {
-				overflow: auto;
-				clear: none;
-				float: left;
-				margin: 0em 1.5em 0 1.5em;
-				background: url(http://i.imgur.com/dWEeh.jpg);
-			}
-			#cwordControls {
-				float: left;
-				overflow: auto;
-				width: 17.5em;
-			}
-			#cwordInputOutput {
-				clear: right;
-				display: block;
-			}
-			#outputVoids {
-				clear: right;
-				display: block;
-			}
-			.inputOutputButton {
-				float: left;
-				display: block;
-				margin: 0.2em 0.5em;
-			}
-			.correct {
-				background-color: lightgreen !important;
-			}
-			
-			.incorrect {
-				background-color: pink !important;
-			}
-			
-			#puzzleBox {
-				height: 34em;
-				padding: 0.25em;
-				width: 60em;
-				margin: auto;
+			/* Ubiquitous Elements */
+			hr {
+				clear: left;
+				margin: 0.3em 0 0.3em 0;
 			}
 			h3 {
 				text-align: center;
@@ -740,30 +646,215 @@
 				margin: 0em 0 0.5em 0;
 				clear: left;
 			}
-			#topPuzzleBox {
-				width: inherit;
-				height: 30em;
+			button{
+				margin: 0;
 			}
-			#botPuzzleBox {
+			
+			/* Generic Classes */
+			.left {
+				float: left !important;
+			}
+			.right {
+				float: right !important;
+			}
+			.hidden {
+				display: none !important;
+			}
+			.pointer:hover {
+				cursor: pointer;
+			}
+			
+			/* Specific Classes */
+			.shadow {
+				-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+				-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+				box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+			}
+			.editTools {
+				display: none;
+			}
+			
+			/* The Document */
+			html {
+				background: url(http://www.pulsarecard.com/data/media/18/Pattern_Wood.jpg) no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+				height: 100%;
+			}
+			body {
+				margin: 0;
+				font-family:'Helvetica Neue',Arial,sans-serif;
+				z-index: -4;
 				position: relative;
-				height: 130px;
-				background-color: rgba(200,200,200,0.8);
-				border-radius: 1em;
-				padding: 0.3em 0.5em;
+				color: #333;
+				background-color: rgba(255,255,255,0.15);
+				height: 100%;
+				min-height: 38em;
+			}
+			
+			/* The Header */
+			#crossHeader {
+				width: inherit;
+				height: 3.375em;
+				/*background-image: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/wild_oliva.png);*/
+				/*background-image: url(http://subtlepatterns.com/patterns/dark_wood.png);*/
+				background-color: rgba(25,25,25,0.9);
+			}
+			#jessPresent {
+				background: url(http://cdn4.iconfinder.com/data/icons/silent_night_icons/128/gift.png) no-repeat;
+				background-position: 10px 40px;
+				width: 150px;
+				height: 180px;
+				background-color: rgba(100,180,100,1);
+				border-radius: 0 0 25px 0;
+				color: darkgreen;
+				text-shadow: none;
+				font-size: 20px;
+				line-height: 20px;				
+			}
+			#jessPresent:hover {
+				background-color: rgba(150,210,150,1);
+				color: rgba(90,170,90,1);
+			}
+			#downNav {
+				background: url(https://slader.s3.amazonaws.com/images/interface/downNav.png) no-repeat right top;
+				width: 2em;
+				position: absolute;
+				height: 0.5em;
+				right: 40%;
+				top: 3.6em;
+			}
+			#crossHeaderContainer {
+				width: 950px;
+				margin: auto;
+				height: 100%;
+				position: relative;
+			}
+			#crossHeaderContainer img {
+				margin: 4px 0em 4px 1em;
+				padding: 0 1em;
+				float: left;
+			}
+			nav.headerNav {
+				height: 100%;
+				vertical-align: middle;
+				font-weight: bold;
+				text-shadow: #111 1px 2px 0px;
+				color: #EEE;
+				line-height: 54px;
+				font-size: 12px;
+				padding: 0;
+				position: relative;
+			}
+			#headQuote {
+				margin: 0 2em;
+				color: #eee;
+				min-width: 25em;
+				max-width: 27.5em;
+				font-family: cursive;
+				float: left;
+				height: 100%;
+				line-height: 3.375em;				
+			}
+			nav.headerNav div {
+				height: 100%;
+				position: relative;
+				float: inherit;
+				padding: 0 1em;
+				
+			}
+			nav.headerNav div:hover {
+				background-color: rgba(255,255,255,0.2);
+			}
+			nav.headerNav div ul{
+				position: absolute;
+				z-index: 1;
+				top: 3.4em;
+				left: 0em;
+				list-style-type: none;
+				width: 100%;
+				padding: 0;
+				background-color: rgba(25,25,25,0.9);
+				display: none;
+				border-radius: 0 0 0.75em 0.75em;
+			}
+			nav.headerNav div ul li{
+				text-align: center;
+				border-bottom: 1px solid #BBB;
+				height: 2.5em;
+				line-height: 2.5em;
+			}
+			nav.headerNav div ul li:nth-child(1){
+				border-top: 1px solid #BBB;
+			}
+			nav.headerNav div ul li:nth-child(3){
+				border-radius: inherit;
+				border-bottom: 0px;
+			}
+			nav.headerNav div ul li:hover{
+				background-color: rgba(255,255,255,0.2);
+			}
+			.headerSpacer {
+				height: 100%;
+				max-width: 1px;
+				border-right: 1px solid #444;
+				border-left: 1px solid #222;
+				margin: 0;
+				float: left;
+				margin: 0;
+				position: relative;
+			}
+
+			/* Name of Puzzle */			
+			#puzzleName {
+				width: 100%;
+				height: 1em;
+			}
+			
+			/* Advanced Controls */
+			#leftControls {
+				float: left;
+				height: 26.25em;
+				width: 10.94em;
+				background: url(http://i.imgur.com/ZHIbu.png);
+				border-radius: 2px;
+				padding: 0.25em 0.5em;
+				position: relative;
+			}
+			#leftControls button{
+				float: left;
+				font-size: 9px;
+				height: 22px;
+				padding: 0px 1px;
+				margin: 0.3em 0.1em;
+			}
+			#leftControls img#pen {
+				margin: auto;
+				display: block;
+				padding: 0 4.2em;
+			}
+			#advBracket {
+				text-align: center;
+				margin: auto;
+				display: block;
+				padding-right: 0.5em;
+				margin-bottom: 0.25em;
+				opacity: 0.8;
+			}
+			#advHeader {				
+				text-align: center;
+				margin-top: 0.5em;
+				font-size: 1.2em;
+				margin-bottom: 0em;
+				padding-right: 0.5em;
 			}
 			.editMode {
 				color: coral;
 			}
 			.solveMode {
 				color: green;
-			}
-			.mode {
-				overflow: auto;
-				margin-left: 7em;
-				margin-bottom: 0.5em;
-			}
-			button{
-				margin: 0;
 			}
 			#modeButton {
 				-webkit-border-radius: 0px;
@@ -775,15 +866,117 @@
 				width: 65px;
 				height: 22px;
 				
-			}
-			.mode span{
-				margin: 2px 0;
+			}		
+			.puzControlCheckContainer {
 				float: left;
-				vertical-align: center;
+				width: 40px;
+				font-size: 9px;
+				line-height: 6px;
 			}
-			.left {
+			.puzControlCheckContainer input[type='checkbox']{
+				width: 6px;
+				height: 10px;
+			}
+			
+			/* The Puzzle */
+			#puzzleBox {
+				height: 34em;
+				padding: 0.25em;
+				width: 60em;
+				margin: auto;
+			}
+			#topPuzzleBox {
+				width: inherit;
+				height: 30em;
+			}
+			#botPuzzleBox {
+				position: relative;
+				height: 130px;
+				background-color: rgba(200,200,200,0.8);
+				border-radius: 1em;
+				padding: 0.3em 0.5em;
+			}
+
+			#cword {
+				overflow: auto;
+				clear: none;
 				float: left;
+				margin: 0em 1.5em 0 1.5em;
+				background: url(http://i.imgur.com/dWEeh.jpg);
 			}
+			div.row {
+				clear: both;
+			}
+			.cellContainer{
+				position: relative;
+				border: 0;
+				float: left;
+				padding: 0;
+				margin: 0;
+				overflow:hidden;
+				z-index: 400;
+				min-width: 1.6em;
+			}
+			.cellContainer.hoverCell {
+				background-color: #F9FCC6 !important;
+			}
+			input.cell {
+				max-width: 1em;
+				margin: 0;
+				font-size: 125%;
+				padding: 0.125em;
+				border: solid 0.0625em black;
+				text-align: center;
+				position: relative;
+				text-transform: uppercase;
+				background-color: rgba(255,255,255,0.0);
+				z-index: 500;
+			}
+			input.void {
+				background-color: black !important;
+			}
+			.correct {
+				background-color: lightgreen !important;
+			}
+			
+			.incorrect {
+				background-color: pink !important;
+			}
+			.cellNum {
+				position: absolute;
+				font-size: 10px;
+				min-width: 1em;
+				min-height: 1em;
+				max-width: 1em;
+				max-height: 1em;
+				top: 0em;
+				left: 0.1em;
+				z-index: 450;
+			}
+			
+			/* Clue Display and Controls */
+			#rightControls {
+				float: left;
+				overflow: auto;
+				width: 17.5em;
+			}
+			
+			/* Data Input/Output */
+			#cwordInputOutput {
+				clear: right;
+				display: block;
+			}
+			#outputVoids {
+				clear: right;
+				display: block;
+			}
+			.inputOutputButton {
+				float: left;
+				display: block;
+				margin: 0.2em 0.5em;
+			}			
+			
+			/* Add Clues */
 			#clueForm {
 				overflow: auto;
 				position: relative;
@@ -841,50 +1034,26 @@
 				height: 24px;
 				
 			}
-			#leftControls {
-				float: left;
-				height: 26.25em;
-				width: 10.94em;
-				background: url(http://i.imgur.com/ZHIbu.png);
-				border-radius: 2px;
-				padding: 0.25em 0.5em;
-				position: relative;
-			}
-			#leftControls button{
-				float: left;
-				font-size: 9px;
-				height: 22px;
-				padding: 0px 1px;
-				margin: 0.3em 0.1em;
-			}
-			#leftControls img#pen {
-				margin: auto;
-				display: block;
-				padding: 0 4.2em;
-			}
-			hr {
-				clear: left;
-				margin: 0.3em 0 0.3em 0;
-			}			
-			.puzControlCheckContainer {
-				float: left;
-				width: 40px;
-				font-size: 9px;
-				line-height: 6px;
-			}
-			.puzControlCheckContainer input[type='checkbox']{
-				width: 6px;
-				height: 10px;
-			}
+			
+			/* Clue Display */
 			#currentClue {
 				overflow: auto;
 				position: relative;
 				min-height: 280px;
 				background: url(http://i.imgur.com/xzFTv.png);
 			}
-			.clueP {
-				font-size: 12px;
+			#clueHolder {
+				margin-top: 3em;
 			}
+			.curA, .curD {
+				display: none;
+				margin-left: 3em;
+				margin-right: 3em;
+				font-size: 14px;
+			}
+
+			
+			/* Third-party On-Off Switch */
 			.onoffswitch {
 				position: relative; width: 73px;
 				-webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
@@ -933,179 +1102,8 @@
 			.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
 				right: 0px; 
 			}
-			.curA, .curD {
-				display: none;
-				margin-left: 3em;
-				margin-right: 3em;
-				font-size: 14px;
-			}
-			#crossHeader {
-				width: inherit;
-				height: 3.375em;
-				/*background-image: url(http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/wild_oliva.png);*/
-				/*background-image: url(http://subtlepatterns.com/patterns/dark_wood.png);*/
-				background-color: rgba(25,25,25,0.9);
-			}
-			.shadow {
-				-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-				-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-				box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-			}
-			#crossFooter {
-				height: 1.5em;
-				line-height: 1.5em;
-				background-color: rgba(200,200,200,0.6);
-				position: absolute;
-				bottom: 0px;
-				min-width: 100%;
-				max-width: 100%;
-			}
-			#crossHeaderContainer {
-				width: 950px;
-				margin: auto;
-				height: 100%;
-				position: relative;
-			}
-			#crossHeaderContainer img {
-				margin: 4px 0em 4px 1em;
-				padding: 0 1em;
-				float: left;
-			}
-			.headerSpacer {
-				height: 100%;
-				max-width: 1px;
-				border-right: 1px solid #444;
-				border-left: 1px solid #222;
-				margin: 0;
-				float: left;
-				margin: 0;
-				position: relative;
-			}
-			.left {
-				float: left;
-			}
-			.right {
-				float: right;
-			}
-			nav.headerNav {
-				height: 100%;
-				vertical-align: middle;
-				font-weight: bold;
-				text-shadow: #111 1px 2px 0px;
-				color: #EEE;
-				line-height: 54px;
-				font-size: 12px;
-				padding: 0;
-				position: relative;
-			}
-			nav.headerNav div {
-				height: 100%;
-				position: relative;
-				float: inherit;
-				padding: 0 1em;
-				
-			}
-			nav.headerNav div:hover {
-				background-color: rgba(255,255,255,0.2);
-			}
-			nav.headerNav div ul{
-				position: absolute;
-				z-index: 1;
-				top: 3.4em;
-				left: 0em;
-				list-style-type: none;
-				width: 100%;
-				padding: 0;
-				background-color: rgba(25,25,25,0.9);
-				display: none;
-				border-radius: 0 0 0.75em 0.75em;
-			}
-			nav.headerNav div ul li{
-				text-align: center;
-				border-bottom: 1px solid #BBB;
-				height: 2.5em;
-				line-height: 2.5em;
-			}
-			nav.headerNav div ul li:nth-child(1){
-				border-top: 1px solid #BBB;
-			}
-			nav.headerNav div ul li:nth-child(3){
-				border-radius: inherit;
-				border-bottom: 0px;
-			}
-			nav.headerNav div ul li:hover{
-				background-color: rgba(255,255,255,0.2);
-			}
-			.hidden {
-				display: none !important;
-			}
-			#headQuote {
-				margin: 0 2em;
-				color: #eee;
-				min-width: 25em;
-				max-width: 27.5em;
-				font-family: cursive;
-				float: left;
-				height: 100%;
-				line-height: 3.375em;				
-			}
-			#advBracket {
-				text-align: center;
-				margin: auto;
-				display: block;
-				padding-right: 0.5em;
-				margin-bottom: 0.25em;
-				opacity: 0.8;
-			}
-			#advHeader {				
-				text-align: center;
-				margin-top: 0.5em;
-				font-size: 1.2em;
-				margin-bottom: 0em;
-				padding-right: 0.5em;
-			}
-			#clueHeader {
-				font-size: 1.2em;
-				text-align: center;
-				margin-top: 1.5em;
-			}
-			.pointer:hover {
-				cursor: pointer;
-			}
-			#clueHolder {
-				margin-top: 3em;
-			}
-			#puzzleName {
-				width: 100%;
-				height: 1em;
-			}
-			.editTools {
-				display: none;
-			}
-			#jessPresent {
-				background: url(http://cdn4.iconfinder.com/data/icons/silent_night_icons/128/gift.png) no-repeat;
-				background-position: 10px 40px;
-				width: 150px;
-				height: 180px;
-				background-color: rgba(100,180,100,1);
-				border-radius: 0 0 25px 0;
-				color: darkgreen;
-				text-shadow: none;
-				font-size: 20px;
-				line-height: 20px;				
-			}
-			#jessPresent:hover {
-				background-color: rgba(150,210,150,1);
-				color: rgba(90,170,90,1);
-			}
-			#downNav {
-				background: url(https://slader.s3.amazonaws.com/images/interface/downNav.png) no-repeat right top;
-				width: 2em;
-				position: absolute;
-				height: 0.5em;
-				right: 40%;
-				top: 3.6em;
-			}
+			
+			/* Results, Checking Answers*/
 			#results {
 				background-color: whitesmoke;
 				border-radius: 0.5em;
@@ -1125,6 +1123,17 @@
 			#showIncorrect {
 				font-size: 14px;
 				font-weight: bold;
+			}
+			
+			/* Footer */
+			#crossFooter {
+				height: 1.5em;
+				line-height: 1.5em;
+				background-color: rgba(200,200,200,0.6);
+				position: absolute;
+				bottom: 0px;
+				min-width: 100%;
+				max-width: 100%;
 			}
 			#footerContent {
 				padding-left: 0.5em;
@@ -1198,7 +1207,7 @@
 					</div>
 				</div>
 				<div id='cword' class="shadow"></div>
-				<div id='cwordControls'>
+				<div id='rightControls'>
 					<div id="currentClue">
 						<img id="dishStain" src="http://i.imgur.com/ZQu4d.png" style="
 							margin-left: 14%;
