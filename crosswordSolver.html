@@ -957,8 +957,8 @@
 				background-color: rgba(200,200,200,0.6);
 				position: absolute;
 				bottom: 0px;
-				width: 100%;
-				padding-left: 1em;
+				min-width: 100%;
+				max-width: 100%;
 			}
 			#crossHeaderContainer {
 				width: 950px;
@@ -1126,6 +1126,9 @@
 				font-size: 14px;
 				font-weight: bold;
 			}
+			#footerContent {
+				padding-left: 0.5em;
+			}
 		</style>
 		<!-- Preloads larger images -->
 		<script type="text/javascript">
@@ -1249,7 +1252,7 @@
 			</div>
 		</div>
 		<div id="crossFooter">
-			&copy;Dylan O'Shea, 2012
+			<div id="footerContent">&copy;Dylan O'Shea, 2012</div>
 		</div>
 		<!--
 		Things to Add/Improve:
