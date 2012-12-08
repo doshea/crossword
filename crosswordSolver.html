@@ -9,6 +9,7 @@
 		<meta name="keywords" content="crossword, puzzle, solver" />
 		<title>Crossword Café</title>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 		<script type="text/javascript">
 			// HTML contents of cells and rows
 			var cell = '<div class="cellContainer"><input class="cell" type="text" cellnumber=-1 acrossclue=-1 downclue=-1 maxlength="1"></input><div class="cellNum"></div></div>';
@@ -39,8 +40,8 @@
 			var dylan = new Crossword(dylanVoids1, dylanLetters1, dylanClues1);
 			
 			
-			//var jessClues = '[{"Across":"Fertility goddess and Dylan muse","Down":"As Nick is Mariah, Ashton ..."},{"Across":"","Down":"Sexual fortitude"},{"Across":"","Down":"Technique for separating molecules by pI"},{"Across":"","Down":"NIMH term for winter depression"},{"Across":"Chicken precursors and antecedents","Down":"National flag, when hoisted aloft"},{"Across":"","Down":"First chief executive of the USA"},{"Across":"","Down":"P.C. term for the non-heterosexual community"},{"Across":"","Down":"Nguni-speaking southeast African people "},{"Across":"Mohammedan peregrination","Down":"Shanghai (abbr.)"},{"Across":"","Down":"Charlie Brown, to Little Red-Haired Girl "},{"Across":"","Down":"Stunningly beautiful young woman"},{"Across":"","Down":"Little Fox\'s monogram"},{"Across":"Ironclad order to a 292.5-degree heading","Down":""},{"Across":"","Down":"Tiny clone of entertainer Raymond IV (??)"},{"Across":"Home of David\'s tribe","Down":"Trick ramps in extreme sports"},{"Across":"Singular demonstrative pronouns, slangily","Down":""},{"Across":"Russian electro-pop duo and contract lesbians","Down":""},{"Across":"","Down":"Unit for measuring bricks and feathers"},{"Across":"Controversial ramen ingr.","Down":""},{"Across":"Key with one or four sharps (abbr.)","Down":""},{"Across":"Suffix with ado or pe","Down":""},{"Across":"","Down":"Term for conchiglie and artillery munitions"},{"Across":"The walking dead, in Haiti or Louisiana","Down":""},{"Across":"","Down":"With -tism, head dampening"},{"Across":"Film de Woody sur les jours modernes et les nuits modernistes","Down":""},{"Across":"","Down":"Popular anime show featuring Super Saiyans"},{"Across":"","Down":"Ribonucleic acid found in the nucleolus"},{"Across":"","Down":"Fun for breast friends"},{"Across":"","Down":"202.5 degrees on a compass"},{"Across":"Where to look for a Bornean sultan","Down":""},{"Across":"Tech standards or ocular aids","Down":""},{"Across":"Makers and prim. audience of 26-Down, with dyed hair","Down":""},{"Across":"Semi-permanent cognitive associations (abbr.)","Down":""},{"Across":"","Down":"Brothel owners"},{"Across":"","Down":"Academic institution in First Hill and the CD"},{"Across":"Uncooked","Down":""},{"Across":"Alternate measure for three-quarters of U.S.","Down":""},{"Across":"","Down":"000-1200"},{"Across":"","Down":"Replacements ride pine"},{"Across":"","Down":"Hoe precursors"},{"Across":"Suffix with Super-, prefix with -man","Down":"144x-scaled measure of force per area"},{"Across":"","Down":"Disorder caused by many haemoglobin deficiencies"},{"Across":"","Down":"Author of <em>Les Enfants terribles</em> and screenwriter of <em>La Belle et la Bête</em>"},{"Across":"Metab. disorder characterized by pancake-ready piss ","Down":""},{"Across":"Futuristic planet in <em>The Book of the New Sun</em>","Down":""},{"Across":"","Down":"Descriptor for sex-saturated media"},{"Across":"","Down":"Dane\'s answer to \'\'What\'s relaxing and fun?\'\'"},{"Across":"Nocturnal nasal noise","Down":""},{"Across":"","Down":"Long wavelength color"},{"Across":"","Down":"Engage in cybersex?"},{"Across":"Structure in which C = O","Down":""},{"Across":"","Down":"Tyrant lizard\'s Noel?"},{"Across":"","Down":"Avec \'el\', un palindrome festive sur le 25e de Décembre"},{"Across":"21st century communication after a 90s party","Down":""},{"Across":"","Down":"Foremost Brit. lexicon"},{"Across":"","Down":"Terrorist target of Operation Neptune Spear"},{"Across":"Answer to \'\'Who has a healing touch?\'\'","Down":""},{"Across":"Adj.","Down":""},{"Across":"19x19 monochromatic battle","Down":""},{"Across":"With \'\'and\'\', those who are transformed by assumption","Down":"Congregation of Boston-based spiritually liberal religion"},{"Across":"Corp. silence agreements","Down":""},{"Across":"","Down":"Cos reciprocal"},{"Across":"Two-fifths of a glove","Down":""},{"Across":"","Down":"Tangent mnemonic"},{"Across":"","Down":"Standard explosive used to measure bomb yield"},{"Across":"Without why, the five scrambled (?)","Down":""},{"Across":"","Down":"Kiss and hug"},{"Across":"Biological sleep aid","Down":""},{"Across":"","Down":"French article"},{"Across":"Ce qui n\'est pas réel","Down":""},{"Across":"They may be ones or elevens","Down":""},{"Across":"Back end of an obese individual?","Down":""}]';
-			//var jessPresent = new Crossword(dylanVoids1, dylanLetters1, jessClues);
+			var jessClues = '[{"Across":"Fertility goddess and Dylan muse","Down":"As Nick is Mariah, Ashton ..."},{"Across":"","Down":"Sexual fortitude"},{"Across":"","Down":"Technique for separating molecules by pI"},{"Across":"","Down":"NIMH term for winter depression"},{"Across":"Chicken precursors and antecedents","Down":"National flag, when hoisted aloft"},{"Across":"","Down":"First chief executive of the USA"},{"Across":"","Down":"P.C. term for the non-heterosexual community"},{"Across":"","Down":"Nguni-speaking southeast African people "},{"Across":"Mohammedan peregrination","Down":"Shanghai (abbr.)"},{"Across":"","Down":"Charlie Brown, to Little Red-Haired Girl "},{"Across":"","Down":"Stunningly beautiful young woman"},{"Across":"","Down":"Little Fox\'s monogram"},{"Across":"Ironclad order to a 292.5-degree heading","Down":""},{"Across":"","Down":"Tiny clone of entertainer Raymond IV (??)"},{"Across":"Home of David\'s tribe","Down":"Trick ramps in extreme sports"},{"Across":"Singular demonstrative pronouns, slangily","Down":""},{"Across":"Russian electro-pop duo and contract lesbians","Down":""},{"Across":"","Down":"Unit for measuring bricks and feathers"},{"Across":"Controversial ramen ingr.","Down":""},{"Across":"Key with one or four sharps (abbr.)","Down":""},{"Across":"Suffix with ado or pe","Down":""},{"Across":"","Down":"Term for conchiglie and artillery munitions"},{"Across":"The walking dead, in Haiti or Louisiana","Down":""},{"Across":"","Down":"With -tism, head dampening"},{"Across":"Film de Woody sur les jours modernes et les nuits modernistes","Down":""},{"Across":"","Down":"Popular anime show featuring Super Saiyans"},{"Across":"","Down":"Ribonucleic acid found in the nucleolus"},{"Across":"","Down":"Fun for breast friends"},{"Across":"","Down":"202.5 degrees on a compass"},{"Across":"Where to look for a Bornean sultan","Down":""},{"Across":"Tech standards or ocular aids","Down":""},{"Across":"Makers and prim. audience of 26-Down, with dyed hair","Down":""},{"Across":"Semi-permanent cognitive associations (abbr.)","Down":""},{"Across":"","Down":"Brothel owners"},{"Across":"","Down":"Academic institution in First Hill and the CD"},{"Across":"Uncooked","Down":""},{"Across":"Alternate measure for three-quarters of U.S.","Down":""},{"Across":"","Down":"000-1200"},{"Across":"","Down":"Replacements ride pine"},{"Across":"","Down":"Hoe precursors"},{"Across":"Suffix with Super-, prefix with -man","Down":"144x-scaled measure of force per area"},{"Across":"","Down":"Disorder caused by many haemoglobin deficiencies"},{"Across":"","Down":"Author of <em>Les Enfants terribles</em> and screenwriter of <em>La Belle et la Bête</em>"},{"Across":"Metab. disorder characterized by pancake-ready piss ","Down":""},{"Across":"Futuristic planet in <em>The Book of the New Sun</em>","Down":""},{"Across":"","Down":"Descriptor for sex-saturated media"},{"Across":"","Down":"Dane\'s answer to \'\'What\'s relaxing and fun?\'\'"},{"Across":"Nocturnal nasal noise","Down":""},{"Across":"","Down":"Long wavelength color"},{"Across":"","Down":"Engage in cybersex?"},{"Across":"Structure in which C = O","Down":""},{"Across":"","Down":"Tyrant lizard\'s Noel?"},{"Across":"","Down":"Avec \'el\', un palindrome festive sur le 25e de Décembre"},{"Across":"21st century communication after a 90s party","Down":""},{"Across":"","Down":"Foremost Brit. lexicon"},{"Across":"","Down":"Terrorist target of Operation Neptune Spear"},{"Across":"Answer to \'\'Who has a healing touch?\'\'","Down":""},{"Across":"Adj.","Down":""},{"Across":"19x19 monochromatic battle","Down":""},{"Across":"With \'\'and\'\', those who are transformed by assumption","Down":"Congregation of Boston-based spiritually liberal religion"},{"Across":"Corp. silence agreements","Down":""},{"Across":"","Down":"Cos reciprocal"},{"Across":"Two-fifths of a glove","Down":""},{"Across":"","Down":"Tangent mnemonic"},{"Across":"","Down":"Standard explosive used to measure bomb yield"},{"Across":"Without why, the five scrambled (?)","Down":""},{"Across":"","Down":"Kiss and hug"},{"Across":"Biological sleep aid","Down":""},{"Across":"","Down":"French article"},{"Across":"Ce qui n\'est pas réel","Down":""},{"Across":"They may be ones or elevens","Down":""},{"Across":"Back end of an obese individual?","Down":""}]';
+			var jessPresent = new Crossword(dylanVoids1, dylanLetters1, jessClues);
 			
 			//Reference variables used throughout		
 			var $cells;
@@ -416,7 +417,7 @@
 			Checks the cells that the user has filled against the answers for the current puzzle.
 			Fills in incorrect answers and highlights them red, while highlighting correct answers green.
 			*/
-			function compareAnswers(){
+			function cheat(){
 				correctLetters = 0;
 				totalLetters = 0;
 				for(var i = 0; i< $cells.length; i++){
@@ -436,6 +437,17 @@
 				}
 				var congrats = (correctLetters > 0.8*totalLetters)? 'Awesome job!' : 'Sucks, brah.';
 				$('#cheatResult').text('You got '+ correctLetters + ' out of ' + totalLetters+' correct. ' + congrats);
+			}
+			function showIncorrect(){
+				for(var i = 0; i< $cells.length; i++){
+					$cell = $($cells[i]);
+					if (!$cell.hasClass('void')){
+						if(($cell.val().toLowerCase() !== currentCrossword.letters[i].toLowerCase()) && (!$cell.hasClass('incorrect')) && (!$cell.hasClass('correct'))){
+							$cell.addClass('flashRed');
+						}
+					}
+				}
+				$('.flashRed').animate({backgroundColor: 'rgba(255,192,203,1)'}, 500,'linear').animate({backgroundColor: 'rgba(255,255,255,0)'}, 1500, 'linear').removeClass('flashRed');
 			}
 			
 			//Function that changes the crossword from Edit Mode to Solve Mode and back
@@ -619,8 +631,7 @@
 				margin: 0;
 				font-size: 125%;
 				padding: 0.125em;
-				border-style: solid;
-				border-width: 0.0625em;
+				border: solid 0.0625em black;
 				text-align: center;
 				position: relative;
 				text-transform: uppercase;
@@ -655,6 +666,7 @@
 				margin: 0;
 				overflow:hidden;
 				z-index: 400;
+				min-width: 1.6em;
 			}
 			body {
 				margin: 0;
@@ -1014,13 +1026,12 @@
 			#headQuote {
 				margin: 0 2em;
 				color: #eee;
-				min-width: 400px;
-				max-width: 400px;
+				min-width: 25em;
+				max-width: 27.5em;
 				font-family: cursive;
-				vertical-align: center;
 				float: left;
 				height: 100%;
-				line-height: 54px;				
+				line-height: 3.375em;				
 			}
 			#advBracket {
 				text-align: center;
@@ -1071,6 +1082,14 @@
 				background-color: rgba(150,210,150,1);
 				color: rgba(90,170,90,1);
 			}
+			#downNav {
+				background: url(https://slader.s3.amazonaws.com/images/interface/downNav.png) no-repeat right top;
+				width: 2em;
+				position: absolute;
+				height: 0.5em;
+				right: 40%;
+				top: 3.6em;
+			}
 		</style>
 		<!-- Preloads larger images -->
 		<script type="text/javascript">
@@ -1094,12 +1113,14 @@
 					<span class="headerSpacer right"></span>
 					<div class="menuTab">
 					Load Puzzle
+						<div id="downNav"></div>
 						<ul>
 							<li class="pointer" onclick="loadCrossword(locke1);">Locke #1</li>
 							<li class="pointer" onclick="loadCrossword(locke2);">Locke #2</li>
 							<li class="pointer" onclick="loadCrossword(dylan);">Dylan #1</li>
 							<!-- <li id="jessPresent" class="pointer" onclick="loadCrossword(jessPresent);">Present for Jess!</li> -->
 						</ul>
+						
 					</div>
 					<span class="headerSpacer right"></span>
 					<div class="pointer" onclick="clearCells(); clearClues(); currentCrossword=new Crossword([],[],[]);">New Puzzle</div>
@@ -1172,8 +1193,8 @@
 							<button id="clueButton" value="Add Clue" onclick="addClue(getClueText(),getClueCellNumber(),getClueOrientation()); $('#clueInput').val('');$('#clueCell').val('');" >Add Clue</button>
 						</div>
 					</div>
-					<input type="button" value="Check Answers Incorrect" onclick="compareAnswers();"/><br />
-					<input type="button" value="Cheat!" id="solution" onclick="compareAnswers();"/><br />
+					<input type="button" value="Show Incorrect" onclick="showIncorrect();"/><br />
+					<input type="button" value="Cheat!" id="solution" onclick="cheat();"/><br />
 					<span id='cheatResult'></span>
 				</div>
 			</div>
