@@ -16,10 +16,12 @@
 			var row = '<div class="row"></div>';
 			
 			// The Crossword Class
-			function Crossword(voids, letters, clues){
+			function Crossword(voids, letters, clues, title, creator){
 				this.voids = voids;
 				this.letters = letters;
 				this.clues=clues;
+				this.title = title;
+				this.creator = creator;
 			}
 			
 			// Essentially static variables for this iteration of the site
@@ -35,9 +37,9 @@
 			var dylanClues1 = '[{"Across":"Fertility goddess and Dylan muse","Down":"As Nick is Mariah, Ashton ..."},{"Across":"","Down":"Enduring strength and fortitude"},{"Across":"","Down":"Technique for separating molecules by pI"},{"Across":"","Down":"NIMH term for winter depression"},{"Across":"Chicken precursors and antecedents","Down":"National flag, when hoisted aloft"},{"Across":"","Down":"First chief executive of the USA"},{"Across":"","Down":"P.C. term for the non-heterosexual community"},{"Across":"","Down":"Nguni-speaking southeast African people "},{"Across":"Mohammedan peregrination","Down":"Shanghai (abbr.)"},{"Across":"","Down":"Charlie Brown, to Little Red-Haired Girl "},{"Across":"","Down":"Framed rabbit\'s voluptuous wife"},{"Across":"","Down":"Military lawyer TV-show"},{"Across":"Ironclad order to a 292.5-degree heading","Down":""},{"Across":"","Down":"Tiny clone of entertainer Raymond IV (??)"},{"Across":"Home of David\'s tribe","Down":"Trick ramps in extreme sports"},{"Across":"Singular demonstrative pronouns, slangily","Down":""},{"Across":"Russian electro-pop duo and contract lesbians","Down":""},{"Across":"","Down":"Unit for measuring bricks and feathers"},{"Across":"Controversial ramen ingr.","Down":""},{"Across":"Key with one or four sharps (abbr.)","Down":""},{"Across":"Suffix with Ado","Down":""},{"Across":"","Down":"Term for conchiglie and artillery munitions"},{"Across":"The walking dead, in Haiti or Louisiana","Down":""},{"Across":"","Down":"With -tism, head dampening"},{"Across":"Allen film contrasting modern day with modernist nights","Down":""},{"Across":"","Down":"Popular anime show featuring Super Saiyans"},{"Across":"","Down":"Nucleic acid found in the nucleolus"},{"Across":"","Down":"Tasseled curtain restrainer"},{"Across":"","Down":"202.5 degrees on a compass"},{"Across":"Where to look for a Bornean sultan","Down":""},{"Across":"Tech details or ocular aids","Down":""},{"Across":"Makers and prim. audience of 26-Down, with dyed hair","Down":""},{"Across":"Lt. Gov. Overpeck and Apollo Lander, e.g.","Down":""},{"Across":"","Down":"Brothel owners"},{"Across":"","Down":"Academic institution in First Hill and the CD"},{"Across":"Uncooked","Down":""},{"Across":"Data storage device in Akkar\'s capital?","Down":""},{"Across":"","Down":"Famous Cartesian sum"},{"Across":"","Down":"Replacements ride pine"},{"Across":"","Down":"Hoe precursors"},{"Across":"Suffix with Super-, prefix with -man","Down":"144x-scaled measure of force per area"},{"Across":"","Down":"Disorder caused by many haemoglobin deficiencies"},{"Across":"","Down":"Author of <em>Les Enfants terribles</em> and screenwriter of <em>La Belle et la Bête</em>"},{"Across":"School for stone-deaf \'sotans","Down":""},{"Across":"Futuristic planet in <em>The Book of the New Sun</em>","Down":""},{"Across":"","Down":"Descriptor for sex-saturated media"},{"Across":"","Down":"Danes\' answer to \'\'What\'s relaxing and fun?\'\'"},{"Across":"Nocturnal nasal noise","Down":""},{"Across":"","Down":"Long wavelength color"},{"Across":"","Down":"Engage in cybersex?"},{"Across":"Structure in which C = O","Down":""},{"Across":"","Down":"Tyrant lizard\'s Noel?"},{"Across":"","Down":"Avec \'el\', un palindrome festive sur le 25e de Décembre"},{"Across":"Zuckerberg email","Down":""},{"Across":"","Down":"Foremost Brit. lexicon"},{"Across":"","Down":"Terrorist target of Operation Neptune Spear"},{"Across":"Answer to \'\'Who has a healing touch?\'\'","Down":""},{"Across":"Adj.","Down":""},{"Across":"19x19 monochromatic battle","Down":""},{"Across":"Suffix with leg and ass","Down":"Congregation of Boston-based spiritually liberal religion"},{"Across":"Corp. silence agreements","Down":""},{"Across":"","Down":"Cos reciprocal"},{"Across":"Two-fifths of a glove","Down":""},{"Across":"","Down":"Tangent mnemonic"},{"Across":"","Down":"Standard explosive used to measure bomb yield"},{"Across":"Without why, the five scrambled (?)","Down":""},{"Across":"","Down":"Kiss and hug"},{"Across":"Biological sleep aid","Down":""},{"Across":"","Down":"French article"},{"Across":"Ce qui n\'est pas réel","Down":""},{"Across":"Lettered ones","Down":""},{"Across":"Back end of an obese individual?","Down":""}]';
 			
 			var currentCrossword = new Crossword([],[],[]);
-			var locke1 = new Crossword(lockeVoids1, lockeLetters1, lockeClues1);
-			var locke2 = new Crossword(lockeVoids2, lockeLetters2, lockeClues2);			
-			var dylan = new Crossword(dylanVoids1, dylanLetters1, dylanClues1);
+			var locke1 = new Crossword(lockeVoids1, lockeLetters1, lockeClues1,"","Andrew Locke");
+			var locke2 = new Crossword(lockeVoids2, lockeLetters2, lockeClues2,"Over the Rainbow","Andrew Locke");			
+			var dylan = new Crossword(dylanVoids1, dylanLetters1, dylanClues1,"Parisian Holiday","Dylan O'Shea");
 			
 			//Hanukkah crossword for Jess
 			var jessLetters00 = ['i','s','i','s','','e','g','g','s','','','H','A','J','J','s','t','e','a','m','n','w','b','w','','j','u','d','E','A','d','a','t','d','i','s','','t','a','t','u','','m','S','G','e','m','','','n','i','s','','z','o','m','b','i','S','','M','i','d','n','i','g','h','t','i','n','p','a','r','i','s','i','n','b','r','u','n','e','i','','','s','p','e','C','s','','a','z','n','s','','l','t','m','s','','','r','A','w','','','','a','h','a','l','f','a','u','s','b','','','','p','A','c','','','m','s','u','d','','u','r','t','H','','s','N','o','R','E','','','c','A','r','b','o','n','Y','l','f','a','c','e','b','o','o','k','m','e','s','s','a','g','e','','E','t','D','o','e','s','','s','x','s','','','G','o','u','M','e','','n','d','A','s','','m','i','t','t','E','n','u','I','a','O','e','','m','e','l','a','t','o','n','i','n','F','A','u','X','','','a','c','e','s','','a','t','S','o'];
@@ -49,17 +51,15 @@
 			var $cells;
 			var $cellNums;
 			
-			//Variables defining current crossword's characteristics
-			
+			//Variables defining current crossword's dimensions
 			var numRows = 15;
 			var numCols = 15;
-			
 			
 			// Boolean to track whether the user is in Edit or Solve mode
 			var editMode = false;
 			
 			// Public counter for counting which cell was last numbered
-			var counter = 1;
+			var cellNumberingCounter = 1;
 			
 			// Functions for removing the puzzle elements
 			function deleteCells(){
@@ -82,105 +82,183 @@
 				return newString;
 			}
 			
-			// Functions for determining whether a cell in the crossword is an edge cell.
-			function isTopRowCell(cellNumber){
-				return cellNumber<numCols;
-			}
-			function isBotRowCell(cellNumber){
-				var finalCell = numCols*numRows-1;
-				return cellNumber > finalCell - numCols;
-			}
-			function isLeftColCell(cellNumber){
-				return cellNumber%numCols==0;
-			}
-			function isRightColCell(cellNumber){
-				return cellNumber%numCols==(numCols-1);
-			}
-			
-			
-			// Functions returning adjacent cells
-			function $cellAbove(cellNumber){
-				return $($cells[cellNumber-numCols]);
-			}
-			function $cellBelow(cellNumber){
-				return $($cells[cellNumber+numCols]);
-			}
-			function $cellLeft(cellNumber){
-				return $($cells[cellNumber-1]);
-			}
-			function $cellRight(cellNumber){
-				return $($cells[cellNumber+1]);
-			}
-			
 			//Function to return a cell's index within the array of cells
 			function getCellIndex(cell){
 				return $cells.index(cell);
 			}
 			
-			//Functions to get the nearest clued cell above or left
-			function getClueLeft(cell){
-				if(hasAcrossClue(cell) && !isVoid(cell)){
-					return {'Number':parseFloat(cell.attr('cellnumber')),'Clue':acrossClue(cell)};
-				}
-				else if (isLeftColCell(getCellIndex(cell)) || isVoid(cell)){
-					return false;
-				}
-				else {
-					return getClueLeft(getCellLeft(cell));
-				}
+			//Functions for using a cell position to find its index or itself
+			function getCellIndexFromRC(row, col){
+				return row*numCols+col;
 			}
-			function getClueAbove(cell){
-				if(hasDownClue(cell) && !isVoid(cell)){
-					return {'Number':parseFloat(cell.attr('cellnumber')),'Clue':downClue(cell)};
-				}
-				else if (isTopRowCell(getCellIndex(cell)) || isVoid(cell)){
-					return false;
-				}
-				else {
-					return getClueAbove(getCellAbove(cell));
-				}
-			}
-			function hasDownClue(cell){
-				if(cell.attr('downclue') && (cell.attr('downclue')!=-1)){
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
-			function hasAcrossClue(cell){
-				if(cell.attr('acrossclue') && (cell.attr('acrossclue')!=-1)){
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
-			function downClue(cell){
-				return cell.attr('downclue');
-			}
-			function acrossClue(cell){
-				return cell.attr('acrossclue');
+			function get$CellfromRC(row, col){
+				return $($cells[getCellIndexFromRC(row,col)]);
 			}
 			
-			function getCellAbove(cell){
-				return $($cells[getCellIndex(cell)-numCols]);
+			// Functions returning rows and columns of a cell given it or its index
+			function getRow($cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return Math.floor(cellIndexOr$Cell)/numRows;
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return Math.floor(getCellIndex($cell)/numRows);
+				} else {
+					throwIndexCellError();
+				}
 			}
-			function getCellBelow(cell){
-				return $($cells[getCellIndex(cell)+numCols]);
+			function getCol($cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return $cell % numCols;
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return getCellIndex($cell) % numCols;
+				} else {
+					throwIndexCellError();
+				}
 			}
-			function getCellLeft(cell){
-				return $($cells[getCellIndex(cell)-1]);
+			
+			// Functions for determining whether a cell in the crossword is an edge cell.
+			function isTopRowCell(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return cellIndexOr$Cell<numCols && cellIndexOr$Cell >= 0;
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return getRow(cellIndexOr$Cell) == 0;
+				} else {
+					throwIndexCellError();
+				}
 			}
-			function getCellRight(cell){
-				return $($cells[getCellIndex(cell)+1]);
+			function isBotRowCell(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					var finalCell = numCols*numRows-1;
+					return cellIndexOr$Cell > finalCell - numCols;
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return getRow(cellIndexOr$Cell) == (numRows-1);
+				} else {
+					throwIndexCellError();
+				}
+			}
+			function isLeftColCell(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell) == "number"){
+					return cellIndexOr$Cell % numCols == 0;
+				} else if (typeof(cellIndexOr$Cell) == "object") {
+					return getCol(cellIndexOr$Cell) == 0;
+				} else {
+					throwIndexCellError();
+				}
+			}
+			function isRightColCell(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+				return cellIndexOr$Cell % numCols==(numCols-1);
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return getCol(cellIndexOr$Cell) == (numCols-1);
+				} else {
+					throwIndexCellError();
+				}
+			}
+			function throwIndexCellError(){
+				throw new Error("Invalid input. Only cell indices (integers) and cell jQuery objects are allowed.");
+			}
+			
+			
+			// Functions returning adjacent cells
+			function $cellAbove(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return $($cells[cellIndexOr$Cell-numCols]);
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return $($cells[getCellIndex(cellIndexOr$Cell)-numCols]);
+				} else {
+					throwIndexCellError();
+				}
+			}
+			function $cellBelow(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return $($cells[cellIndexOr$Cell+numCols]);
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return $($cells[getCellIndex(cellIndexOr$Cell)+numCols]);
+				} else {
+					throwIndexCellError();
+				}
+			}
+			function $cellLeft(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return $($cells[cellIndexOr$Cell-1]);
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return $($cells[getCellIndex(cellIndexOr$Cell)-1]);
+				} else {
+					throwIndexCellError();
+				}
+			}
+			function $cellRight(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return $($cells[cellIndexOr$Cell+1]);
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return $($cells[getCellIndex(cellIndexOr$Cell)+1]);
+				} else {
+					throwIndexCellError();
+				}
+			}
+			function $cellOpposite(cellIndexOr$Cell){
+				if (typeof(cellIndexOr$Cell)=="number"){
+					return $($cells[numCols*numRows-cellIndexOr$Cell]);
+				} else if (typeof(cellIndexOr$Cell)=="object") {
+					return $($cells[numCols*numRows-getCellIndex(cellIndexOr$Cell)-1]);
+				} else {
+					throwIndexCellError();
+				}
+			}
+			
+			//Functions to get the nearest clued cell above or left
+			function getClueLeft($cell){
+				if(hasAcrossClue($cell) && !isVoid($cell)){
+					return {'Number':parseFloat($cell.attr('cellnumber')),'Clue':acrossClue($cell)};
+				}
+				else if (isLeftColCell(getCellIndex($cell)) || isVoid($cell)){
+					return false;
+				}
+				else {
+					return getClueLeft($cellLeft($cell));
+				}
+			}
+			function getClueAbove($cell){
+				if(hasDownClue($cell) && !isVoid($cell)){
+					return {'Number':parseFloat($cell.attr('cellnumber')),'Clue':downClue($cell)};
+				}
+				else if (isTopRowCell(getCellIndex($cell)) || isVoid($cell)){
+					return false;
+				}
+				else {
+					return getClueAbove($cellAbove($cell));
+				}
+			}
+			function hasDownClue($cell){
+				if($cell.attr('downclue') && ($cell.attr('downclue')!=-1)){
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			function hasAcrossClue($cell){
+				if($cell.attr('acrossclue') && ($cell.attr('acrossclue')!=-1)){
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			function downClue($cell){
+				return $cell.attr('downclue');
+			}
+			function acrossClue($cell){
+				return $cell.attr('acrossclue');
 			}
 			
 			//Helper function for making a cell void and toggling a cell void
-			function makeVoid(cell){
-				removeCorrectness(cell);
-				cell.val('');
-				cell.addClass('void');
+			function makeVoid($cell){
+				removeCorrectness($cell);
+				$cell.val('');
+				$cell.addClass('void');
+				if ( $('#autoMirror').attr('checked') && !isVoid($cellOpposite($cell)) ){
+					makeVoid($cellOpposite($cell));
+				}
 			}
 			function toggleVoid(cell){
 				if(cell.hasClass('void')){
@@ -206,20 +284,20 @@
 			Functions for determining whether adjacent cells are void and thus determining
 			whether the cell is lone/single.
 			*/
-			function hasLetterAbove(cellNumber){
-				return ((!isTopRowCell(cellNumber)) && (!$cellAbove(cellNumber).hasClass('void')));
+			function hasLetterAbove(cellIndex){
+				return ((!isTopRowCell(cellIndex)) && (!$cellAbove(cellIndex).hasClass('void')));
 			}
-			function hasLetterBelow(cellNumber){
-				return ((!isBotRowCell(cellNumber)) && (!$cellBelow(cellNumber).hasClass('void')));
+			function hasLetterBelow(cellIndex){
+				return ((!isBotRowCell(cellIndex)) && (!$cellBelow(cellIndex).hasClass('void')));
 			}
-			function hasLetterLeft(cellNumber){
-				return ((!isLeftColCell(cellNumber)) && (!$cellLeft(cellNumber).hasClass('void')));
+			function hasLetterLeft(cellIndex){
+				return ((!isLeftColCell(cellIndex)) && (!$cellLeft(cellIndex).hasClass('void')));
 			}
-			function hasLetterRight(cellNumber){
-				return ((!isRightColCell(cellNumber)) && (!$cellRight(cellNumber).hasClass('void')));
+			function hasLetterRight(cellIndex){
+				return ((!isRightColCell(cellIndex)) && (!$cellRight(cellIndex).hasClass('void')));
 			}
-			function isLoneCell(cellNumber){
-				return ((!hasLetterAbove(cellNumber) && !hasLetterBelow(cellNumber)) || (!hasLetterLeft(cellNumber) && !hasLetterRight(cellNumber)));
+			function isLoneCell(cellIndex){
+				return ((!hasLetterAbove(cellIndex) && !hasLetterBelow(cellIndex)) || (!hasLetterLeft(cellIndex) && !hasLetterRight(cellIndex)));
 			}
 			
 			/*
@@ -321,7 +399,7 @@
 			
 			//Function to automatically number the cells of a blank puzzle
 			function numberCells(){
-				counter = 1;
+				cellNumberingCounter = 1;
 				for(var i = 0; i<$cells.length; i++){
 					$cell = $($cells[i]);
 					$cellNum = $($cellNums[i]);
@@ -345,14 +423,14 @@
 						}
 					}
 				}
-				counter = 1;
+				cellNumberingCounter = 1;
 			}
 			
 			//Helper function for adding numbers to non-void cells
 			function addNumber(cell,cellNum){
-				cell.attr('cellnumber',counter);
-				cellNum.text(''+counter);
-				counter+=1;
+				cell.attr('cellnumber',cellNumberingCounter);
+				cellNum.text(''+cellNumberingCounter);
+				cellNumberingCounter+=1;
 			}
 			
 			// Functions for clearing various parts of the puzzle
@@ -556,8 +634,12 @@
 						$(this).parent().removeClass('hoverCell');
 					}
 				);
-				$cells.click(function(){
-					this.select();
+				
+				//When a cell is focused, highlights the contents of the cell for easy changes
+				//Oddly written timeout because otherwise the keypress focuses don't properly highlight
+				$cells.on('focus', function(){
+    				var save_this = $(this);
+    				window.setTimeout (function(){save_this.select();},1);
 				});
 				
 				//Prevents non-digit values from being typed in cell number textbox
@@ -569,19 +651,19 @@
 				$cells.on('keydown',function(event){
 					switch (event.which) {
 						case 13:
-							getCellBelow(this).focus();
+							$cellBelow(this).select();
 							break;
 						case 37:
-							getCellLeft(this).focus();
+							$cellLeft(this).select();
 							break;
 						case 38:
-							getCellAbove(this).focus();
+							$cellAbove(this).select();
 							break;
 						case 39:
-							getCellRight(this).focus();
+							$cellRight(this).select();
 							break;
 						case 40:
-							getCellBelow(this).focus();
+							$cellBelow(this).select();
 							break;
 							
 					}
@@ -1211,14 +1293,21 @@
 						<hr />
 						<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers();">Clear Voids</button>
 						<button value="Void All" id="voidAll" onclick="makeVoid($cells);">Void All</button>
+						<div id="autoMirrorContainer" class="puzControlCheckContainer">
+							<input type="checkbox" id="autoMirror" class="puzControlCheck" />&nbsp;&nbsp;<span>Auto-Mirror</span>
+						</div>
 						<hr />
 						<button value="Clear Letters" id="clearLetters" onclick="clearLetters();">Clear Letters</button>
-						<div id="allCapsContainer" class="puzControlCheckContainer"><input type="checkbox" id="allCaps" class="puzControlCheck" checked="true"/>&nbsp;&nbsp;<span>All &nbsp;&nbsp;Caps?</span></div>
+						<div id="allCapsContainer" class="puzControlCheckContainer">
+							<input type="checkbox" id="allCaps" class="puzControlCheck" checked />&nbsp;&nbsp;<span>All &nbsp;&nbsp;Caps?</span>
+						</div>
 						<hr />
 						<button value="Clear Clues" id="clearClues" onclick="clearClues();">Clear Clues</button>
 						<hr />
 						<button value="Re-number Cells" id="renumber" onclick="clearNumbers(); numberCells();"/>Re-number</button>
-						<div id="skipSingleContainer" class="puzControlCheckContainer"><input type="checkbox" id="skipSingles" class="puzControlCheck" checked="true"/>&nbsp;&nbsp;<span>Skip &nbsp;&nbsp;singles?</span></div>
+						<div id="skipSingleContainer" class="puzControlCheckContainer">
+							<input type="checkbox" id="skipSingles" class="puzControlCheck" checked />&nbsp;&nbsp;<span>Skip &nbsp;&nbsp;singles?</span>
+						</div>
 						<hr />
 						<h6>Puzzle Stats:</h6>
 						<span>
