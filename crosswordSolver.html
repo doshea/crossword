@@ -16,12 +16,13 @@
 			var row = '<div class="row"></div>';
 			
 			// The Crossword Class
-			function Crossword(voids, letters, clues, title, creator){
+			function Crossword(voids, letters, clues, title, creator, year){
 				this.voids = voids;
 				this.letters = letters;
 				this.clues=clues;
 				this.title = title;
 				this.creator = creator;
+				this.year = year;
 			}
 			
 			// Essentially static variables for this iteration of the site
@@ -37,9 +38,9 @@
 			var dylanClues1 = '[{"Across":"Fertility goddess and Dylan muse","Down":"As Nick is Mariah, Ashton ..."},{"Across":"","Down":"Enduring strength and fortitude"},{"Across":"","Down":"Technique for separating molecules by pI"},{"Across":"","Down":"NIMH term for winter depression"},{"Across":"Chicken precursors and antecedents","Down":"National flag, when hoisted aloft"},{"Across":"","Down":"First chief executive of the USA"},{"Across":"","Down":"P.C. term for the non-heterosexual community"},{"Across":"","Down":"Nguni-speaking southeast African people "},{"Across":"Mohammedan peregrination","Down":"Shanghai (abbr.)"},{"Across":"","Down":"Charlie Brown, to Little Red-Haired Girl "},{"Across":"","Down":"Framed rabbit\'s voluptuous wife"},{"Across":"","Down":"Military lawyer TV-show"},{"Across":"Ironclad order to a 292.5-degree heading","Down":""},{"Across":"","Down":"Tiny clone of entertainer Raymond IV (??)"},{"Across":"Home of David\'s tribe","Down":"Trick ramps in extreme sports"},{"Across":"Singular demonstrative pronouns, slangily","Down":""},{"Across":"Russian electro-pop duo and contract lesbians","Down":""},{"Across":"","Down":"Unit for measuring bricks and feathers"},{"Across":"Controversial ramen ingr.","Down":""},{"Across":"Key with one or four sharps (abbr.)","Down":""},{"Across":"Suffix with Ado","Down":""},{"Across":"","Down":"Term for conchiglie and artillery munitions"},{"Across":"The walking dead, in Haiti or Louisiana","Down":""},{"Across":"","Down":"With -tism, head dampening"},{"Across":"Allen film contrasting modern day with modernist nights","Down":""},{"Across":"","Down":"Popular anime show featuring Super Saiyans"},{"Across":"","Down":"Nucleic acid found in the nucleolus"},{"Across":"","Down":"Tasseled curtain restrainer"},{"Across":"","Down":"202.5 degrees on a compass"},{"Across":"Where to look for a Bornean sultan","Down":""},{"Across":"Tech details or ocular aids","Down":""},{"Across":"Makers and prim. audience of 26-Down, with dyed hair","Down":""},{"Across":"Lt. Gov. Overpeck and Apollo Lander, e.g.","Down":""},{"Across":"","Down":"Brothel owners"},{"Across":"","Down":"Academic institution in First Hill and the CD"},{"Across":"Uncooked","Down":""},{"Across":"Data storage device in Akkar\'s capital?","Down":""},{"Across":"","Down":"Famous Cartesian sum"},{"Across":"","Down":"Replacements ride pine"},{"Across":"","Down":"Hoe precursors"},{"Across":"Suffix with Super-, prefix with -man","Down":"144x-scaled measure of force per area"},{"Across":"","Down":"Disorder caused by many haemoglobin deficiencies"},{"Across":"","Down":"Author of <em>Les Enfants terribles</em> and screenwriter of <em>La Belle et la Bête</em>"},{"Across":"School for stone-deaf \'sotans","Down":""},{"Across":"Futuristic planet in <em>The Book of the New Sun</em>","Down":""},{"Across":"","Down":"Descriptor for sex-saturated media"},{"Across":"","Down":"Danes\' answer to \'\'What\'s relaxing and fun?\'\'"},{"Across":"Nocturnal nasal noise","Down":""},{"Across":"","Down":"Long wavelength color"},{"Across":"","Down":"Engage in cybersex?"},{"Across":"Structure in which C = O","Down":""},{"Across":"","Down":"Tyrant lizard\'s Noel?"},{"Across":"","Down":"Avec \'el\', un palindrome festive sur le 25e de Décembre"},{"Across":"Zuckerberg email","Down":""},{"Across":"","Down":"Foremost Brit. lexicon"},{"Across":"","Down":"Terrorist target of Operation Neptune Spear"},{"Across":"Answer to \'\'Who has a healing touch?\'\'","Down":""},{"Across":"Adj.","Down":""},{"Across":"19x19 monochromatic battle","Down":""},{"Across":"Suffix with leg and ass","Down":"Congregation of Boston-based spiritually liberal religion"},{"Across":"Corp. silence agreements","Down":""},{"Across":"","Down":"Cos reciprocal"},{"Across":"Two-fifths of a glove","Down":""},{"Across":"","Down":"Tangent mnemonic"},{"Across":"","Down":"Standard explosive used to measure bomb yield"},{"Across":"Without why, the five scrambled (?)","Down":""},{"Across":"","Down":"Kiss and hug"},{"Across":"Biological sleep aid","Down":""},{"Across":"","Down":"French article"},{"Across":"Ce qui n\'est pas réel","Down":""},{"Across":"Lettered ones","Down":""},{"Across":"Back end of an obese individual?","Down":""}]';
 			
 			var currentCrossword = new Crossword([],[],[]);
-			var locke1 = new Crossword(lockeVoids1, lockeLetters1, lockeClues1,"","Andrew Locke");
-			var locke2 = new Crossword(lockeVoids2, lockeLetters2, lockeClues2,"Over the Rainbow","Andrew Locke");			
-			var dylan = new Crossword(dylanVoids1, dylanLetters1, dylanClues1,"Parisian Holiday","Dylan O'Shea");
+			var locke1 = new Crossword(lockeVoids1, lockeLetters1, lockeClues1,"Interstellar Travel","Andrew Locke", 2012);
+			var locke2 = new Crossword(lockeVoids2, lockeLetters2, lockeClues2,"Over the Rainbow","Andrew Locke", 2012);			
+			var dylan = new Crossword(dylanVoids1, dylanLetters1, dylanClues1,"Parisian Holiday","Dylan O'Shea", 2012);
 			
 			//Hanukkah crossword for Jess
 			var jessLetters00 = ['i','s','i','s','','e','g','g','s','','','H','A','J','J','s','t','e','a','m','n','w','b','w','','j','u','d','E','A','d','a','t','d','i','s','','t','a','t','u','','m','S','G','e','m','','','n','i','s','','z','o','m','b','i','S','','M','i','d','n','i','g','h','t','i','n','p','a','r','i','s','i','n','b','r','u','n','e','i','','','s','p','e','C','s','','a','z','n','s','','l','t','m','s','','','r','A','w','','','','a','h','a','l','f','a','u','s','b','','','','p','A','c','','','m','s','u','d','','u','r','t','H','','s','N','o','R','E','','','c','A','r','b','o','n','Y','l','f','a','c','e','b','o','o','k','m','e','s','s','a','g','e','','E','t','D','o','e','s','','s','x','s','','','G','o','u','M','e','','n','d','A','s','','m','i','t','t','E','n','u','I','a','O','e','','m','e','l','a','t','o','n','i','n','F','A','u','X','','','a','c','e','s','','a','t','S','o'];
@@ -460,10 +461,34 @@
 				$cells.attr('downclue',-1);
 			}
 			
-			//Updates the rows and columns of tooltip under the puzzle
+			//Updates the puzzle's stats
 			function updateRCTip() {
 				$('#rowDim').text(numRows);
 				$('#colDim').text(numCols);
+			}
+			function updateWhiteBlack(){
+				$('#whiteCellCount').text($('.cell:not(.void)').length);
+				$('#blackCellCount').text($('.cell.void').length);
+			}
+			function updateStats(){
+				updateRCTip();
+				updateWhiteBlack();
+			}
+			
+			function updateTitle(){
+				if(currentCrossword.title){
+					$('.cwordTitle').text(currentCrossword.title);
+				}
+			}
+			function updateCreator(){
+				if(currentCrossword.creator){
+					$('.cwordCreator').text(currentCrossword.creator);
+				}
+			}
+			function updateYear(){
+				if(currentCrossword.creator){
+					$('.cwordYear').text(currentCrossword.year);
+				}
 			}
 			
 			//Clue functions
@@ -561,6 +586,9 @@
 				numberCells();
 				currentCrossword = crossword;
 				inputClues(crossword.clues);
+				updateStats();
+				updateTitle();
+				updateCreator();
 			}
 			
 			/*
@@ -669,11 +697,18 @@
 					}
 				});
 				$('.menuTab').on('hover', function(){
-					$(this).find('ul').fadeIn(60);
+					$(this).find('.dropMenu').fadeIn(60);
 				});
 				$('.menuTab').on('mouseleave', function(){
-					$(this).find('ul').fadeOut(200);
+					$(this).find('.dropMenu').fadeOut(200);
 				});
+				$('.dropMenu li').on('hover', function(){
+					$(this).find('.leftMenu').fadeIn(60);
+				});
+				$('.dropMenu li').on('mouseleave', function(){
+					$(this).find('.leftMenu').fadeOut(200);
+				});
+				
 				
 				
 				$('#advHeader, #advBracket, #pen').on('click',function(){
@@ -698,8 +733,8 @@
 						$cells.css('text-transform', 'none');
 					}
 				});
-
-				updateRCTip();
+				
+				updateStats();
 			});
 			
 			// Allows preloading of images
@@ -757,6 +792,19 @@
 			.editTools {
 				display: none;
 			}
+			.container {
+				display: inline-block;
+				padding: 0;
+				margin: 0;
+			}
+			.hiddenInput {
+				padding: 0;
+				background: none;
+				border: none;
+				font-family: inherit;
+				font-size: inherit;
+				font-weight: inherit;
+			}
 			
 			/* The Document */
 			html {
@@ -802,13 +850,22 @@
 				background-color: rgba(150,210,150,1);
 				color: rgba(90,170,90,1);
 			}
-			#downNav {
-				background: url(http://i.imgur.com/2cAXK.png) no-repeat right top;
+			.downNav {
+				background: url(http://i.imgur.com/fONGa.png) no-repeat right top;
 				width: 2em;
-				position: absolute;
-				height: 0.5em;
+				position: absolute !important;
+				height: 0.5em !important;
 				right: 40%;
 				top: 3.6em;
+			}
+			.leftNav {
+				background: url(http://i.imgur.com/2cAXK.png) no-repeat right top;
+				position: absolute !important;
+				width: 0.5em !important;
+				height: 1.8em !important;
+				left: 3%;
+				top:20%;
+				padding: 0 !important;
 			}
 			#crossHeaderContainer {
 				width: 950px;
@@ -850,27 +907,49 @@
 				
 			}
 			nav.headerNav div:hover {
-				background-color: rgba(255,255,255,0.2);
+				background-color: rgba(255,255,255,0.1);
 			}
 			nav.headerNav div ul{
 				position: absolute;
 				z-index: 1;
-				top: 3.4em;
-				left: 0em;
 				list-style-type: none;
 				width: 100%;
 				padding: 0;
 				background-color: rgba(25,25,25,0.9);
+			}
+			.dropMenu {
+				left: 0em;
+				top: 3.5em;
 				display: none;
-				border-radius: 0 0 0.75em 0.75em;
+				border-radius: 0 0 0.75em 0;
+			}
+			.leftMenu {
+				position: absolute !important;
+				right: 8.3em;
+				top: 0;
+				display:none;
+				border-right:1px solid #444;
+			}
+			ul.leftMenu {
+				border-radius: 0.75em 0 0 0.75em;
+			}
+			ul.leftMenu li:last-child {
+				border-bottom: 0;
+			}
+
+			ul.dropMenu li, ul.leftMenu li {
+				position: relative;
 			}
 			nav.headerNav div ul li{
 				text-align: center;
-				border-bottom: 1px solid #444;
-				height: 2.5em;
-				line-height: 2.5em;
+				height: 2em;
+				line-height: 2em;
+				font-size: 11px;
 			}
-			nav.headerNav div ul li:nth-child(1){
+			nav.headerNav div ul.dropMenu > li:last-child{
+				border-bottom: 0;
+			}
+			nav.headerNav div ul.dropMenu > li:nth-child(1){
 				border-top: 1px solid #444;
 			}
 			nav.headerNav div ul li:nth-child(3){
@@ -878,7 +957,7 @@
 				border-bottom: 0px;
 			}
 			nav.headerNav div ul li:hover{
-				background-color: rgba(255,255,255,0.2);
+				background-color: rgba(255,255,255,0.1);
 			}
 			.headerSpacer {
 				height: 100%;
@@ -899,13 +978,13 @@
 			
 			/* Advanced Controls */
 			#leftControls {
-				float: left;
 				height: 26.25em;
 				width: 10.94em;
 				background: url(http://i.imgur.com/ZHIbu.png);
 				border-radius: 2px;
 				padding: 0.25em 0.5em;
 				position: relative;
+				display: inline-block;
 			}
 			#leftControls button{
 				float: left;
@@ -961,11 +1040,14 @@
 				width: 6px;
 				height: 10px;
 			}
+			#stats {
+				font-size: 10px;
+			}
 			
 			/* The Puzzle */
 			#puzzleBox {
 				height: 34em;
-				padding: 0.25em 0.25em 0.25em 1.5em;
+				padding: 2em 0.25em 0.25em 1.5em;
 				width: 58em;
 				margin: auto;
 			}
@@ -980,13 +1062,35 @@
 				border-radius: 1em;
 				padding: 0.3em 0.5em;
 			}
-
+			#cwordContainer {
+				position: relative;
+			}
 			#cword {
 				overflow: auto;
 				clear: none;
-				float: left;
 				margin: 0em 1.5em 0 1.5em;
 				background: url(http://i.imgur.com/dWEeh.jpg);
+				position: relative;
+				display: inline-block;
+			}
+			#titleBar {
+				position: absolute;
+				top:-1.4em;
+				left: 1.6em;
+				border-top-left-radius: 0.5em;
+				border-top-right-radius: 0.5em;
+				background-color: lightgrey;
+				padding: 0.2em 1em 0em 1em;
+				font-weight: bold;
+			}
+			#creatorCredit {
+				position: absolute;
+				bottom:-1.4em;
+				right: 1.6em;
+				border-bottom-left-radius: 0.5em;
+				border-bottom-right-radius: 0.5em;
+				background-color: lightgrey;
+				padding: 0em 1em 0.2em 1em;
 			}
 			div.row {
 				clear: both;
@@ -1040,7 +1144,7 @@
 			
 			/* Clue Display and Controls */
 			#rightControls {
-				float: left;
+				display: inline-block;
 				overflow: auto;
 				width: 17.5em;
 			}
@@ -1160,23 +1264,23 @@
 			}
 			.onoffswitch-inner > div {
 				float: left; width: 50%; height: 19px; padding: 0; line-height: 19px;
-				font-size: 10px; color: white; font-family: 'Helvetica Neue',Arial,sans-serif; font-weight: bold;
+				font-size: 0.625em; color: white; font-family: 'Helvetica Neue',Arial,sans-serif; font-weight: bold;
 				-moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 			}
 			.onoffswitch-inner .onoffswitch-active {
-				padding-left: 10px;
+				padding-left: 0.625em;
 				background-color: #C4C4C4; color: #FFFFFF;
 			}
 			.onoffswitch-inner .onoffswitch-inactive {
-				padding-right: 10px;
+				padding-right: 0.625em;
 				background-color: #EEEEEE; color: #999999;
 				text-align: right;
 			}
 			.onoffswitch-switch {
-				width: 12px; margin: 3.5px;
+				width: 0.75em; margin: 0.22em;
 				background: #FFFFFF;
-				border: 2px solid #999999; border-radius: 20px;
-				position: absolute; top: 0; bottom: 0; right: 50px;
+				border: 0.125em solid #999999; border-radius: 1.25em;
+				position: absolute; top: 0; bottom: 0; right: 3.125em;
 				-moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
 				-o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
 			}
@@ -1184,7 +1288,7 @@
 				margin-left: 0;
 			}
 			.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-				right: 0px; 
+				right: 0; 
 			}
 			
 			/* Results, Checking Answers*/
@@ -1204,10 +1308,6 @@
 				right: 1em;
 				bottom: 0.5em;
 			}
-			#showIncorrect {
-				font-size: 14px;
-				font-weight: bold;
-			}
 			
 			/* Footer */
 			#crossFooter {
@@ -1215,7 +1315,7 @@
 				line-height: 1.5em;
 				background-color: rgba(200,200,200,0.6);
 				position: absolute;
-				bottom: 0px;
+				bottom: 0;
 				min-width: 100%;
 				max-width: 100%;
 			}
@@ -1235,6 +1335,7 @@
 				padding: 1em 0;
 				display: none;
 			}
+
 		</style>
 		<!-- Preloads larger images -->
 		<script type="text/javascript">
@@ -1263,11 +1364,21 @@
 					<span class="headerSpacer right"></span>
 					<div class="menuTab">
 					Load Puzzle
-						<div id="downNav"></div>
-						<ul>
-							<li class="pointer" onclick="loadCrossword(locke1);">Locke #1</li>
-							<li class="pointer" onclick="loadCrossword(locke2);">Locke #2</li>
-							<li class="pointer" onclick="loadCrossword(dylan);">Dylan #1</li>
+						<div class="downNav"></div>
+						<ul class="dropMenu">
+							<li>Locke
+								<div class="leftNav"></div>
+								<ul class="leftMenu">
+									<li class="pointer" onclick="loadCrossword(locke1);">Interstellar</li>
+									<li class="pointer" onclick="loadCrossword(locke2);">Rainbow</li>
+								</ul>
+							</li>
+							<li>O'Shea
+								<div class="leftNav"></div>
+								<ul class="leftMenu">
+									<li class="pointer" onclick="loadCrossword(dylan);">Parisian</li>
+								</ul>
+							</li>
 							<!--<li id="jessPresent" class="pointer" onclick="$('#happyHanukkahMessage').fadeIn(700).delay(3000).fadeOut(300);loadCrossword(jessPresent);">Present for Jess!</li>-->
 						</ul>
 						
@@ -1280,9 +1391,7 @@
 		</div>
 		<div id='puzzleBox'>
 			<div id="topPuzzleBox">
-				<div id="puzzleName">
-				</div>
-				<div id="leftControls">
+				<div id="leftControls" class="left">
 					<h5 id="advHeader" class="pointer">Advanced</h5>
 					<img id="advBracket" class="pointer" src="http://i.imgur.com/Bs8HM.png" width="65%" height="24em" />
 					<img id="pen" class="pointer" src="http://i.imgur.com/QZRCM.png" height="75%" />
@@ -1310,13 +1419,22 @@
 						</div>
 						<hr />
 						<h6>Puzzle Stats:</h6>
-						<span>
-							Dimensions:<span id="rowDim">?</span><span>&nbsp;x&nbsp;</span><span id="colDim">?</span>
+						<span id="stats">
+							Dimensions:<span id="rowDim">?</span><span>&nbsp;x&nbsp;</span><span id="colDim">?</span><br />
+							Cells -- White: <span id="whiteCellCount">?</span> Black: <span id="blackCellCount"></span>
 						</span>
 					</div>
 				</div>
-				<div id='cword' class="shadow"></div>
-				<div id='rightControls'>
+				<div id="cwordContainer" class="container left">
+					<div id="titleBar" class="shadow">
+						<span class="cwordTitle">+</span>
+					</div>
+					<div id='cword' class="shadow"></div>
+					<div id="creatorCredit" class="shadow">
+						<span class="cwordCreator">+</span><span type="text" class="cwordYear" ></span>
+					</div>
+				</div>
+				<div id="rightControls" class="left">
 					<div id="currentClue">
 						<img id="dishStain" src="http://i.imgur.com/ZQu4d.png" style="
 							margin-left: 14%;
