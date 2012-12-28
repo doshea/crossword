@@ -60,9 +60,6 @@
 			var numRows = 15;
 			var numCols = 15;
 			
-			// Boolean to track whether the user is in Edit or Solve mode
-			var editMode = false;
-			
 			// Public counter for counting which cell was last numbered
 			var cellNumberingCounter = 1;
 			
@@ -559,8 +556,11 @@
 				for(var i = 0; i< $cells.length; i++){
 					$cell = $($cells[i]);
 					if (!$cell.hasClass('void')){
-						if(($cell.val().toLowerCase() !== currentCrossword.letters[i].toLowerCase()) && (!$cell.hasClass('incorrect')) && (!$cell.hasClass('correct'))){
+						if(($cell.val().toLowerCase() !== currentCrossword.letters[i].toLowerCase()) && !$cell.hasClass('incorrect')){
+							$cell.removeClass('correct');
 							$cell.addClass('flashRed');
+						} else if ( ($cell.val().toLowerCase() == currentCrossword.letters[i].toLowerCase())  && (!$cell.hasClass('correct')) ){
+							$cell.addClass('correct');
 						}
 					}
 				}
@@ -573,21 +573,19 @@
 				}
 			}
 			
-			//Function that changes the crossword from Edit Mode to Solve Mode and back
-			function toggleMode(){
-				editMode = !editMode;
-				if(editMode){
-					$('#modeButton').text('EDIT');
-				}
-				else {
-					$('#modeButton').text('SOLVE');
-				}
-				$('#modeButton').toggleClass('editMode solveMode');
-			}
-			
 			function toggleAdvanced(){
 				$('#pen').toggleClass('hidden');
 				$('#advControls').toggleClass('hidden');
+			}
+			
+			function toggleText($object,text1,text2){
+				if($object.text()==text1){
+					$object.text(text2);
+				} else if ($object.text() == text2){
+					$object.text(text1);
+				} else {
+					throw new Error("Not toggling");
+				}
 			}
 			
 			function loadCrossword(crossword){
@@ -619,12 +617,6 @@
 				$(".cell").dblclick(function() {
 					$(this).val('');
 					toggleVoid($(this));
-				});
-				$(".cell").click(function(){
-					if(editMode){
-						$(this).val('');
-						toggleVoid($(this));
-					}
 				});
 				
 				//When the user hovers or focuses a cell, its clues are dynamically displayed and it is highlighted
@@ -707,6 +699,21 @@
 							
 					}
 				});
+				$('#wordsToUseBar input[type=text]').on('keydown',function(event){
+					switch (event.which) {
+						case 13:
+							var contents = $(this).val();
+							if(contents){
+								var wordToAdd = $('<li class="weakHidden"><input type="checkbox" /><span>' + contents + '</span></li>');
+								wordToAdd.appendTo('#wordsToUse');
+								$('#wordsToUse > li.weakHidden').fadeIn(200,function(){
+									$(this).removeClass('weakHidden');
+								});
+								$(this).val('');
+							}
+							break;
+					}	
+				});
 				$('.menuTab').on('hover', function(){
 					$(this).find('.dropMenu').fadeIn(60);
 				});
@@ -727,7 +734,7 @@
 				});
 				
 				//Warning alert when a user un-checks Skip Singles
-				$('#skipSingles').change(function() {
+				$('#skipSingles').on('change',function() {
 					if(!$(this).prop("checked")){
 						var changeSkipBox = confirm('Be careful. Most crossword puzzles do not contain one-letter words.\n\nThose that do generally don\'t number them. Although we provide the option, this box should probably remain checked.');
 						if(!changeSkipBox){
@@ -736,7 +743,7 @@
 					}
 				});
 				//Allows user to disable and enable the default caps-lock in cells
-				$('#allCaps').change(function() {
+				$('#allCaps').on('change',function() {
 					if($(this).prop("checked")){
 						$cells.css('text-transform', 'uppercase');
 					}
@@ -744,8 +751,26 @@
 						$cells.css('text-transform', 'none');
 					}
 				});
-				
+				$('#wordsUseContainer').on('change','input[type=checkbox]',function(){
+					if( $.inArray(this,$('#wordsToUse input')) >=0 ){
+						$(this).closest('li').fadeOut(200,function(){
+							$(this).appendTo($('#wordsUsed')).fadeIn(200);
+						});
+					} else if( $.inArray(this,$('#wordsUsed input')) >=0 ){
+						$(this).closest('li').fadeOut(200,function(){
+							$(this).appendTo($('#wordsToUse')).fadeIn(200);
+						});
+					} else {
+						console.log(0);
+					}
+				});
+				$('#wordsToUse').on('dblclick','li',function(){
+					$(this).fadeOut(200,function(){
+						$(this).remove();
+					});
+				});
 				updateStats();
+				$('.draggable').draggable({cancel:".notDraggable"});
 			});
 			
 			// Allows preloading of images
@@ -790,7 +815,13 @@
 			.hidden {
 				display: none !important;
 			}
+			.weakHidden {
+				display: none;
+			}
 			.pointer:hover {
+				cursor: pointer;
+			}
+			input[type='checkbox'] {
 				cursor: pointer;
 			}
 			
@@ -1023,24 +1054,7 @@
 				font-size: 1.2em;
 				margin-bottom: 0em;
 				padding-right: 0.5em;
-			}
-			.editMode {
-				color: coral;
-			}
-			.solveMode {
-				color: green;
-			}
-			#modeButton {
-				-webkit-border-radius: 0px;
-				-moz-border-radius: 0px;
-				border-radius: 0px;
-				font-family:'Helvetica Neue',Arial,sans-serif;
-				font-weight: bold;
-				font-size: smaller;
-				width: 65px;
-				height: 22px;
-				
-			}		
+			}	
 			.puzControlCheckContainer {
 				float: left;
 				width: 40px;
@@ -1347,7 +1361,87 @@
 				padding: 1em 0;
 				display: none;
 			}
-
+			#wordsToUseBar {
+				position: absolute;
+				left: 0;
+				top: 10em;
+				background: black;
+				margin: 0;
+				min-height: 3.5em;
+				max-height: 15em;
+				border-radius: 1em 1em 0.5em 0.5em;
+				width: 9.2em;
+				cursor: move;
+				z-index: 1000;
+				overflow: hidden;
+			}
+			#wordsUseContainer {
+				max-height: 11.2em;
+				overflow: scroll;
+				margin: 2.8em 0.2em 0.4em 0.2em;
+				padding: 0;
+				position: relative;
+			}
+			/*
+			#wordsUseContainer li:last-of-type {
+				border-bottom-left-radius: 0.5em;
+				border-bottom-right-radius: 0.5em;
+			}
+			*/
+			#wordsToUseBar ul{
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				cursor: default;
+				position: relative;
+			}
+			#wordsToUseBar input[type=text] {
+				position: absolute;
+				top: 0.8em;
+				font-weight: bold;
+				font-size: 1em;
+				margin-left: 0.2em;
+			}
+			#wordsToUseBar ul li{
+				overflow: hidden;
+				position: relative;
+				border-bottom: 1px solid lightgrey;
+			}
+			#wordsToUseBar ul > li > span {
+				text-transform: uppercase;
+			}
+			#wordsToUse > li {
+				background-color: whitesmoke;
+				color: grey;
+			}
+			#wordsUsed > li {
+				background-color: lightgreen;
+				color: green;
+				text-decoration: line-through;
+			}
+			.editMode {
+				color: coral;
+			}
+			.solveMode {
+				color: green;
+			}
+			/*
+			.deleteWord {
+				position: absolute;
+				right: 0.8em;
+				top: 0.1em;
+				background: white;
+				border: 1px solid grey;
+				font-size: 0.6em;
+				border-radius: 0.6em;
+				padding: 0 0.2em;
+				cursor: pointer !important;
+				z-index: 4000;
+			}
+			.deleteWord:hover {
+				background: pink;
+			}
+			*/
 		</style>
 		<!-- Preloads larger images -->
 		<script type="text/javascript">
@@ -1409,9 +1503,8 @@
 					<img id="advBracket" class="pointer" src="http://i.imgur.com/Bs8HM.png" width="65%" height="24em" />
 					<img id="pen" class="pointer" src="http://i.imgur.com/QZRCM.png" height="75%" />
 					<div id="advControls" class="hidden">
-						<span class="left">Current Mode: &nbsp;</span>
-						<button id="modeButton" class="solveMode left" value="SOLVE" onclick="toggleMode();">SOLVE</button>
-						<button id="showData" class="solveMode left" value="EDIT" onclick="$('.editTools').fadeToggle(400);">EDIT</button>
+						<span class="left">Current Mode: <span id="mode" class="solveMode">SOLVE</span></span>
+						<button id="showData" class="left" onclick="toggleText($('#mode'),'EDIT','SOLVE');$('#mode').toggleClass('solveMode editMode');$('.editTools, .solveTools').fadeToggle(400);">SWITCH MODE</button>
 						<hr />
 						<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers();">Clear Voids</button>
 						<button value="Void All" id="voidAll" onclick="makeVoid($cells);">Void All</button>
@@ -1481,7 +1574,7 @@
 							<button id="clueButton" value="Add Clue" onclick="addClue(getClueText(),getClueCellNumber(),getClueOrientation()); $('#clueInput').val('');$('#clueCell').val('');" >Add Clue</button>
 						</div>
 					</div>
-					<div id="results">
+					<div id="results" class="solveTools">
 						<input type="button" value="Show Incorrect" id="showIncorrect" onclick="showIncorrect();"/>
 						<div id='cheatResult'></div>
 						<input type="button" value="Cheat!" id="cheat" onclick="cheat();"/>
@@ -1498,6 +1591,15 @@
 				<button class='inputOutputButton' value="Input Clues" id="inputClues" onclick="inputClues($('#cwordInputOutput').val());return false;">Input Clues</button>
 				<button class='inputOutputButton' value="Output Clues" id="outputClues" onclick="$('#cwordInputOutput').val(outputClues());">Output Clues</button>
 				<br />
+			</div>
+		</div>
+		<div id="wordsToUseBar" class="draggable editTools">
+			<input type="text" class="notDraggable" placeholder="Word to Use" maxlength="25" size="16"/>
+			<div id="wordsUseContainer" class="notDraggable">
+				<ul id="wordsToUse">
+				</ul>
+				<ul id="wordsUsed">
+				</ul>
 			</div>
 		</div>
 		<div id="crossFooter">
