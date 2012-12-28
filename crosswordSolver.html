@@ -99,19 +99,19 @@
 			
 			// Functions returning rows and columns of a cell given it or its index
 			function getRow($cellIndexOr$Cell){
-				if (typeof(cellIndexOr$Cell)=="number"){
-					return Math.floor(cellIndexOr$Cell)/numRows;
-				} else if (typeof(cellIndexOr$Cell)=="object") {
-					return Math.floor(getCellIndex($cell)/numRows);
+				if (typeof($cellIndexOr$Cell)=="number"){
+					return Math.floor($cellIndexOr$Cell)/numRows;
+				} else if (typeof($cellIndexOr$Cell)=="object") {
+					return Math.floor(getCellIndex($cellIndexOr$Cell)/numRows);
 				} else {
 					throwIndexCellError();
 				}
 			}
-			function getCol($cell){
-				if (typeof(cellIndexOr$Cell)=="number"){
-					return $cell % numCols;
-				} else if (typeof(cellIndexOr$Cell)=="object") {
-					return getCellIndex($cell) % numCols;
+			function getCol($cellIndexOr$Cell){
+				if (typeof($cellIndexOr$Cell)=="number"){
+					return $cellIndexOr$Cell % numCols;
+				} else if (typeof($cellIndexOr$Cell)=="object") {
+					return getCellIndex($cellIndexOr$Cell) % numCols;
 				} else {
 					throwIndexCellError();
 				}
@@ -259,13 +259,19 @@
 				$cell.val('');
 				$cell.addClass('void');
 				if ( $('#autoMirror').attr('checked') && !isVoid($cellOpposite($cell)) ){
-					makeVoid($cellOpposite($cell));
+					if($cellOpposite($cell).val()){
+						if( confirm('Overwrite the "' + $cellOpposite($cell).val().toUpperCase() +'" in mirror cell at ('+ ((getRow($cellOpposite($cell)))+1)+','+ (getCol($cellOpposite($cell))+1) +')?')) {
+							makeVoid($cellOpposite($cell));
+						}						
+					} else {
+						makeVoid($cellOpposite($cell));
+					}
 				}
 			}
 			function toggleVoid($cell){
 				if($cell.hasClass('void')){
 					$cell.removeClass('void');
-					if(isVoid($cellOpposite($cell))){
+					if( $('#autoMirror').attr('checked') && isVoid($cellOpposite($cell)) ){
 						toggleVoid($cellOpposite($cell));
 					}
 				} 
@@ -614,7 +620,9 @@
 				//Initialize the cells, cellNumbers, and row x col tag
 				$cells = $('.cell');
 				$cellNums = $('.cellNum');
-				$(".cell").dblclick(function() {
+				
+				
+				$(".cell").on('dblclick', function() {
 					$(this).val('');
 					toggleVoid($(this));
 				});
