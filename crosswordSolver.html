@@ -661,8 +661,10 @@
 				
 				
 				$(".cell").on('dblclick', function() {
-					$(this).val('');
-					toggleVoid($(this));
+					if(mode=="edit"){
+						$(this).val('');
+						toggleVoid($(this));
+					}
 				});
 				
 				//When the user hovers or focuses a cell, its clues are dynamically displayed and it is highlighted
