@@ -15,6 +15,8 @@
 			var cell = '<div class="cellContainer"><input class="cell" type="text" cellnumber=-1 acrossclue=-1 downclue=-1 maxlength="1"></input><div class="cellNum"></div></div>';
 			var row = '<div class="row"></div>';
 			
+			var mode="edit";
+			
 			// The Crossword Class
 			function Crossword(voids, letters, clues, title, creator, year){
 				this.voids = voids;
@@ -470,7 +472,11 @@
 				$cells.attr('acrossclue',-1);
 				$cells.attr('downclue',-1);
 			}
-			
+			function clearCredits(){
+				$('.cwordTitle').text('+');
+				$('.cwordCreator').text('+');
+				$('.cwordYear').text('');
+			}
 			//Updates the puzzle's stats
 			function updateRCTip() {
 				$('#rowDim').text(numRows);
@@ -604,7 +610,39 @@
 				updateStats();
 				updateTitle();
 				updateCreator();
+				solveMode();
 			}
+			function newCrossword(){
+				clearCells(); 
+				clearClues(); 
+				currentCrossword=new Crossword([],[],[]); 
+				clearCredits();
+				editMode();
+			}
+			
+			function editMode() {
+				mode = "edit";
+				$('.editable').attr('contentEditable', true);
+			}
+			function solveMode() {
+				mode = "solve";
+				$('.editable').attr('contentEditable', false);
+			}
+			function toggleMode() {
+				if((mode != "edit") && (mode !="solve")){
+					throw new Error("Invalid current mode: " + mode);
+				} else {
+					toggleText($('#mode'),'EDIT','SOLVE');
+					$('#mode').toggleClass('solveMode editMode');
+					$('.editTools, .solveTools').fadeToggle(400);					
+					if(mode == "solve"){
+						editMode();
+					} else {
+						solveMode();
+					}
+				}
+			}
+			
 			
 			/*
 			Document load function that sets up the puzzle cells and prepares the dblclick
@@ -772,7 +810,7 @@
 						console.log(0);
 					}
 				});
-				$('#wordsToUse').on('dblclick','li',function(){
+				$('#wordsToUse, #wordsUsed').on('dblclick','li',function(){
 					$(this).fadeOut(200,function(){
 						$(this).remove();
 					});
@@ -1115,6 +1153,8 @@
 				background-color: lightgrey;
 				padding: 0.2em 1em 0em 1em;
 				font-weight: bold;
+				max-width: 23em;
+				overflow: hidden;
 			}
 			#creatorCredit {
 				position: absolute;
@@ -1451,6 +1491,13 @@
 				background: pink;
 			}
 			*/
+			#notes {
+				background: url(http://blog-imgs-30.fc2.com/k/a/n/kanini/SP_Organic_NotePaper-415x580.png);
+				position: absolute;
+				width: 51.96em;
+				height: 10em;
+				bottom: 0;
+			}
 		</style>
 		<!-- Preloads larger images -->
 		<script type="text/javascript">
@@ -1500,7 +1547,7 @@
 						
 					</div>
 					<span class="headerSpacer right"></span>
-					<div class="pointer" onclick="clearCells(); clearClues(); currentCrossword=new Crossword([],[],[]);">New Puzzle</div>
+					<div class="pointer" onclick="newCrossword();">New Puzzle</div>
 					<span class="headerSpacer right"></span>
 				</nav>
 			</div>
@@ -1513,7 +1560,7 @@
 					<img id="pen" class="pointer" src="http://i.imgur.com/QZRCM.png" height="75%" />
 					<div id="advControls" class="hidden">
 						<span class="left">Current Mode: <span id="mode" class="solveMode">SOLVE</span></span>
-						<button id="showData" class="left" onclick="toggleText($('#mode'),'EDIT','SOLVE');$('#mode').toggleClass('solveMode editMode');$('.editTools, .solveTools').fadeToggle(400);">SWITCH MODE</button>
+						<button id="showData" class="left" onclick="toggleMode();">SWITCH MODE</button>
 						<hr />
 						<button value="Clear Voids" id="clearVoids" onclick="clearVoids(); clearNumbers();">Clear Voids</button>
 						<button value="Void All" id="voidAll" onclick="makeVoid($cells);">Void All</button>
@@ -1542,11 +1589,11 @@
 				</div>
 				<div id="cwordContainer" class="container left">
 					<div id="titleBar" class="shadow">
-						<span class="cwordTitle">+</span>
+						<span contentEditable="true" class="editable cwordTitle">+</span>
 					</div>
 					<div id='cword' class="shadow"></div>
 					<div id="creatorCredit" class="shadow">
-						<span class="cwordCreator">+</span><span type="text" class="cwordYear" ></span>
+						<span contentEditable="true" class="editable cwordCreator">+</span><span type="text" class="cwordYear" ></span>
 					</div>
 				</div>
 				<div id="rightControls" class="left">
@@ -1602,8 +1649,9 @@
 				<br />
 			</div>
 		</div>
+		<!--<div id="notes"></div>-->
 		<div id="wordsToUseBar" class="draggable editTools">
-			<input type="text" class="notDraggable" placeholder="Word to Use" maxlength="25" size="16"/>
+			<input type="text" class="notDraggable" placeholder="Words to Use" maxlength="25" size="16"/>
 			<div id="wordsUseContainer" class="notDraggable">
 				<ul id="wordsToUse">
 				</ul>
